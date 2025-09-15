@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://chm3si0nicqxd"]
+
+[ext_resource type="PackedScene" uid="uid://b7m0l4xy8303h" path="res://scenes/components/cp_area.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://6mimim1hol1d" path="res://scripts/components/area_components/cp_areasub.gd" id="2_0wfyh"]
+
+[node name="Main" type="Node2D" groups=["Main"]]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CP_Area" parent="." instance=ExtResource("1_o5qli")]
+collision_mask = 133
+
+[node name="AreaSubComponent" type="Node" parent="CP_Area"]
+script = ExtResource("2_0wfyh")
+collision_layer = 4
+metadata/_custom_type_script = "uid://6mimim1hol1d"

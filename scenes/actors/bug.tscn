@@ -1,0 +1,69 @@
+[gd_scene load_steps=13 format=3 uid="uid://kek6tefk2fpk"]
+
+[ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_8dihf"]
+[ext_resource type="PackedScene" uid="uid://byojuvig761hd" path="res://scenes/components/cp_motion.tscn" id="2_ssu4b"]
+[ext_resource type="PackedScene" uid="uid://b7m0l4xy8303h" path="res://scenes/components/cp_area.tscn" id="4_8dihf"]
+[ext_resource type="Texture2D" uid="uid://bfeymagkhabkr" path="res://assets/bug.png" id="4_ssu4b"]
+[ext_resource type="PackedScene" uid="uid://c5lgrvfkkeake" path="res://scenes/components/cp_free.tscn" id="6_j64ad"]
+[ext_resource type="PackedScene" uid="uid://cabi2tsjjcc6r" path="res://scenes/components/cp_lose.tscn" id="7_8dihf"]
+[ext_resource type="Script" uid="uid://djrru78hi2tbg" path="res://scripts/components/cp_score.gd" id="8_ssu4b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a2f0v"]
+size = Vector2(14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmt52"]
+atlas = ExtResource("4_ssu4b")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dihf"]
+atlas = ExtResource("4_ssu4b")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssu4b"]
+atlas = ExtResource("4_ssu4b")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4c8bg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmt52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dihf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssu4b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="Bug" type="Node2D" groups=["Actors"]]
+script = ExtResource("1_8dihf")
+
+[node name="CP_Motion" parent="." instance=ExtResource("2_ssu4b")]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Motion"]
+shape = SubResource("RectangleShape2D_a2f0v")
+
+[node name="CP_AnimSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_4c8bg")
+autoplay = "default"
+frame_progress = 0.288528
+
+[node name="CP_Area" parent="." instance=ExtResource("4_8dihf")]
+
+[node name="CP_Free" parent="." instance=ExtResource("6_j64ad")]
+
+[node name="CP_Score" type="Node" parent="."]
+script = ExtResource("8_ssu4b")
+score_modifier = 1
+metadata/_custom_type_script = "uid://djrru78hi2tbg"
+
+[node name="CP_Lose" parent="." instance=ExtResource("7_8dihf")]
+
+[connection signal="game_lost" from="CP_Lose" to="CP_Free" method="free_actor"]

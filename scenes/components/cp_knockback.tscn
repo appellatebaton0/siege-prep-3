@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn18efytxvbkl"]
+
+[ext_resource type="Script" uid="uid://ci1ipf7vnsa63" path="res://scripts/components/cp_knockback.gd" id="1_05k75"]
+
+[node name="CP_Knockback" type="Area2D"]
+script = ExtResource("1_05k75")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
