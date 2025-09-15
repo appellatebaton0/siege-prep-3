@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgw1cdcm2loma"]
-
-[ext_resource type="Script" uid="uid://chjx6uy3lae5m" path="res://scripts/components/cp_hitbox.gd" id="1_u0qdc"]
-
-[node name="ACP_Hitbox" type="Node"]
-script = ExtResource("1_u0qdc")

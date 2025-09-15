@@ -1,4 +1,4 @@
-extends Component
+extends AreaSubComponent
 class_name KnockbackComponent
 
 @export var amount:float = 0.0
@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 func apply_to(component:MotionComponent):
 	component.me.velocity += amount * actor.global_position.direction_to(component.actor.global_position)
 
-func _on_body_entered(body: Node2D) -> void:
+func on_body_entered(body: Node2D) -> void:
 	if cooldown_left <= 0:
 		var component = body
 		if component is MotionComponent:
