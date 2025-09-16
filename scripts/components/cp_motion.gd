@@ -2,6 +2,9 @@ extends Component
 class_name MotionComponent
 var me:CharacterBody2D = get_me()
 
+# Allows the motioncomponent to be overridden by any node
+var overrider:Node = null
+
 # All the childed motion states
 @onready var motion_states:Array[MotionState] = get_motion_states()
 func get_motion_states() -> Array[MotionState]:
@@ -34,14 +37,23 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	# Run each state's applicable function for physics
-	for state in motion_states:
-		if state == current_state:
-			state.phys_active(delta)
-		else:
-			state.phys_inactive(delta)
+	
+	if overrider == null:
+		for state in motion_states:
+			if state == current_state:
+				state.phys_active(delta)
+			else:
+				state.phys_inactive(delta)
 	
 	# Move & slide
 	me.move_and_slide()
+	
+	if overrider == null:
+		for state in motion_states:
+			if state == current_state:
+				state.post_phys_active(delta)
+			else:
+				state.post_phys_inactive(delta)
 	
 	# Apply the velocity to the actor instead of the component
 	actor.global_position = me.global_position

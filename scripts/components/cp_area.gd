@@ -2,6 +2,42 @@ extends Component
 class_name AreaComponent
 var me:Area2D = get_me()
 
+# IF most of the functionality should be disabled.
+# For if the actor is being held by the mouse, for example.
+var function_disablers:Array = []
+func add_function_disabler(node:Node):
+	if not function_disablers.has(node):
+		function_disablers.append(node)
+func remove_function_disabler(node:Node):
+	if function_disablers.has(node):
+		function_disablers.erase(node)
+func function_disabled() -> bool:
+	return len(function_disablers) > 0
+
+func has_overlapping_collisions() -> bool:
+	var bodies = me.get_overlapping_bodies()
+	var areas = me.get_overlapping_areas()
+
+	## If there's already none, save the trouble
+	if len(bodies) <= 0 and len(areas) <= 0:
+		return false
+	
+	## Get rid of areas & bodies that have the same actor
+	for area in areas:
+		var a = area
+		if a is Component:
+			if a.actor == actor:
+				areas.erase(area)
+	
+	for body in bodies:
+		var a = body
+		if a is Component:
+			if a.actor == actor:
+				bodies.erase(body)
+	
+	## Return whether there are any left
+	return len(bodies) > 0 or len(areas) > 0
+
 @onready var sub_components:Array[AreaSubComponent] = get_sub_components()
 func get_sub_components() -> Array[AreaSubComponent]:
 	var return_array:Array[AreaSubComponent]
@@ -46,11 +82,11 @@ func get_array_as_layer(array:Array[bool]) -> int:
 
 func layer_match(sub_component:AreaSubComponent, object:CollisionObject2D):
 
-	var sub_comp_layers:Array[bool] = get_layer_as_array(sub_component.collision_layer)
-	var obj_comp_mask:Array[bool] = get_layer_as_array(object.collision_mask)
+	var sub_comp_mask:Array[bool] = get_layer_as_array(sub_component.collision_mask)
+	var obj_comp_layer:Array[bool] = get_layer_as_array(object.collision_layer)
 	
-	for i in range(len(sub_comp_layers)):
-		if sub_comp_layers[i] and obj_comp_mask[i]:
+	for i in range(len(sub_comp_mask)):
+		if sub_comp_mask[i] and obj_comp_layer[i]:
 			return true
 	return false
 
@@ -70,27 +106,26 @@ func _on_body_entered(body:Node2D):
 	for component in sub_components:
 		# Only do so if the component has a layer matching the body's
 		if layer_match(component, body):
-			component.on_area_entered(body)
-
-var last_area_overlap:Array[Area2D]
-var last_body_overlap:Array[Node2D]
+			component.on_body_entered(body)
 
 func _process(delta: float) -> void:
+	var bodies:Array[Node2D] = me.get_overlapping_bodies()
 	var areas:Array[Area2D] = me.get_overlapping_areas()
 	
-	# Get rid of ones by the same actor
+	# Get rid of ones by this component's actor
 	for area in areas:
 		var a = area
 		if a is AreaComponent:
 			if a.actor == actor:
 				areas.erase(area)
 	
-	# Run area-based while functions
-	if len(areas) > 0:
-		for component in sub_components:
-			# If the overlap has changed,
-			# Update the component's data
-			if last_area_overlap != areas:
+	for component in sub_components:
+		
+		## UPDATE OVERLAP DATA
+		
+		# If the area overlap has changed,
+		# Update the component's data
+		if component.overlapping_areas != areas:
 				var valid_areas:Array[Area2D]
 				
 				for area in areas:
@@ -99,34 +134,60 @@ func _process(delta: float) -> void:
 				
 				component.overlapping_areas = valid_areas
 	
-			# If it has overlapping areas, run accordingly
-			if len(component.overlapping_areas) > 0:
-				component.while_colliding_areas(component.overlapping_areas)
-	
-	var bodies:Array[Node2D] = me.get_overlapping_bodies()
-	# Run body-based while functions
-	if len(bodies) > 0:
-		for component in sub_components:
-			# If the overlap has changed,
-			# Update the component's data
-			if last_area_overlap != bodies:
-				var valid_bodies:Array[Node2D]
-				
-				for body in bodies:
-					if layer_match(component, body):
-						valid_bodies.append(body)
-				
-				component.overlapping_bodies = valid_bodies
+		# If the body overlap has changed,
+		# Update the component's data
+		if component.overlapping_bodies != bodies:
+			var valid_bodies:Array[Node2D]
+			
+			for body in bodies:
+				if layer_match(component, body):
+					valid_bodies.append(body)
+			
+			component.overlapping_bodies = valid_bodies
+		
+		
+		## RUN SPECIFIC COLLISION FUNCTIONS
+		# while colliding bodies / areas
+		# while no colliding bodies / areas
+		
+		# Run body functions
+		if len(bodies) > 0:
+			
 	
 			# If it has overlapping areas, run accordingly
 			if len(component.overlapping_bodies) > 0:
-				component.while_colliding_bodies(component.overlapping_bodies)
-	
-	
-	if last_area_overlap != areas:
-		last_area_overlap = areas;
-	if last_area_overlap != areas:
-		last_area_overlap = areas;
+				component.while_colliding_bodies(component.overlapping_bodies, delta)
+			# Otherwise, run the no function
+			else:
+				component.while_no_colliding_bodies(delta)
+		else:
+			component.while_no_colliding_bodies(delta)
+		
+		# Run area functions
+		if len(areas) > 0:
+			# If the overlap has changed,
+			# Update the component's data
+			
+			# If it has overlapping areas, run accordingly
+			if len(component.overlapping_areas) > 0:
+				component.while_colliding_areas(component.overlapping_areas, delta)
+			# Otherwise, run the no function
+			else:
+				component.while_no_colliding_areas(delta)
+		else:
+			component.while_no_colliding_areas(delta)
+		
+		
+		## RUN GENERAL COLLISION FUNCTIONS
+		# while no collision at all
+		# while any collision at all
+		
+		# If there's no bodies OR areas, run the corresponding function
+		if len(component.overlapping_bodies) <= 0 and len(component.overlapping_areas) <= 0:
+			component.while_no_collisions(delta)
+		else:
+			component.while_any_collisions(delta)
+		
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	for component in sub_components:

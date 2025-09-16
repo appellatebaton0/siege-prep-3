@@ -1,5 +1,5 @@
 extends AreaSubComponent
-class_name HurtboxComponent
+class_name HurtboxAreaSubComponent
 var me:Area2D = get_me()
 
 signal got_hurt
@@ -13,7 +13,7 @@ func hurt(hurter:Actor):
 
 func on_area_entered(area: Area2D) -> void:
 	var component = area # Abstract type
-	if component is HitboxComponent:
+	if component is HitboxAreaSubComponent:
 		hurt(component.actor)
 
 

@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5ox11s6uu2e7"]
+
+[ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_nni3p"]
+[ext_resource type="PackedScene" uid="uid://dnd4kisf8wjau" path="res://scenes/components/cp_sprite.tscn" id="2_eirvq"]
+[ext_resource type="Texture2D" uid="uid://dkwh0waqppg2t" path="res://assets/apple.png" id="3_ljgr5"]
+[ext_resource type="PackedScene" uid="uid://byojuvig761hd" path="res://scenes/components/cp_motion.tscn" id="4_fpwmc"]
+[ext_resource type="Script" uid="uid://0xco1arf05wp" path="res://scripts/motion_states/ms_friction.gd" id="5_4ejay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_choun"]
+size = Vector2(15, 15)
+
+[node name="Apple" type="Node2D"]
+script = ExtResource("1_nni3p")
+metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
+
+[node name="CP_Sprite" parent="." instance=ExtResource("2_eirvq")]
+texture_filter = 1
+texture = ExtResource("3_ljgr5")
+
+[node name="CP_Motion" parent="." instance=ExtResource("4_fpwmc")]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Motion"]
+shape = SubResource("RectangleShape2D_choun")
+
+[node name="MS_Friction" type="Node" parent="CP_Motion"]
+script = ExtResource("5_4ejay")
+friction = 10.0
+no_diagonals = true
+metadata/_custom_type_script = "uid://0xco1arf05wp"

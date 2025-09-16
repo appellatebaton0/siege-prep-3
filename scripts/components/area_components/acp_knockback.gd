@@ -1,5 +1,5 @@
 extends AreaSubComponent
-class_name KnockbackComponent
+class_name KnockbackAreaSubComponent
 
 @export var amount:float = 0.0
 @export var cooldown:float = 0.0

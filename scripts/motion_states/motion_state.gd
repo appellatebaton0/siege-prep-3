@@ -16,11 +16,15 @@ func vec2_move_towards(a:Vector2, b:Vector2, delta:float):
 # Active
 func phys_active(_delta:float):
 	pass
+func post_phys_active(_delta:float):
+	pass
 func active(_delta:float):
 	pass
 
 # Inactive
 func phys_inactive(_delta:float):
+	pass
+func post_phys_inactive(_delta:float):
 	pass
 func inactive(_delta:float):
 	pass

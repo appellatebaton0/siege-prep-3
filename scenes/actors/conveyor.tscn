@@ -1,0 +1,143 @@
+[gd_scene load_steps=17 format=3 uid="uid://c1o1g8l0yp175"]
+
+[ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_stgkr"]
+[ext_resource type="Texture2D" uid="uid://c01mca2tmsxsi" path="res://assets/conveyor.png" id="2_jo2i1"]
+[ext_resource type="PackedScene" uid="uid://b7m0l4xy8303h" path="res://scenes/components/cp_area.tscn" id="3_25b0p"]
+[ext_resource type="Script" uid="uid://cp7jolp00vhsj" path="res://scripts/components/area_components/acp_dragndrop.gd" id="4_c3xxn"]
+[ext_resource type="Script" uid="uid://58vjd3u66x8p" path="res://scripts/components/area_components/acp_control_rotate.gd" id="4_jo2i1"]
+[ext_resource type="Script" uid="uid://bciur05p7y6v0" path="res://scripts/components/area_components/acp_tooltip.gd" id="5_stgkr"]
+[ext_resource type="Script" uid="uid://c2yxrg8yr1e5x" path="res://scripts/components/area_components/acp_conveyor.gd" id="6_dctoh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8y0u"]
+atlas = ExtResource("2_jo2i1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkv2x"]
+atlas = ExtResource("2_jo2i1")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbj1t"]
+atlas = ExtResource("2_jo2i1")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muem4"]
+atlas = ExtResource("2_jo2i1")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dp3eg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8y0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jkv2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbj1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muem4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_stgkr"]
+offsets = PackedFloat32Array(0.00324675)
+colors = PackedColorArray(0, 0.756863, 0, 0.513726)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jo2i1"]
+gradient = SubResource("Gradient_stgkr")
+width = 16
+height = 16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jo2i1"]
+size = Vector2(15, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
+size = Vector2(16, 16)
+
+[node name="Conveyor" type="Node2D"]
+script = ExtResource("1_stgkr")
+metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_dp3eg")
+autoplay = "default"
+frame_progress = 0.855354
+
+[node name="CP_Area" parent="." instance=ExtResource("3_25b0p")]
+collision_layer = 4
+collision_mask = 7
+
+[node name="ACP_ControlRotate" type="Node" parent="CP_Area"]
+script = ExtResource("4_jo2i1")
+rotation_amount = 90.0
+collision_mask = 1
+metadata/_custom_type_script = "uid://58vjd3u66x8p"
+
+[node name="ACP_DragNDrop" type="Node" parent="CP_Area" node_paths=PackedStringArray("placement_indicator", "placement_checker")]
+script = ExtResource("4_c3xxn")
+placement_indicator = NodePath("PlacementIndicator")
+placement_checker = NodePath("CP_Area")
+follow_lerp = 0.55
+grid_locked = true
+grid_offset = Vector2(8, 8)
+collision_mask = 1
+metadata/_custom_type_script = "uid://cp7jolp00vhsj"
+
+[node name="PlacementIndicator" type="Sprite2D" parent="CP_Area/ACP_DragNDrop"]
+z_index = -1
+texture = SubResource("GradientTexture2D_jo2i1")
+
+[node name="CP_Area" parent="CP_Area/ACP_DragNDrop" instance=ExtResource("3_25b0p")]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Area/ACP_DragNDrop/CP_Area"]
+shape = SubResource("RectangleShape2D_jo2i1")
+
+[node name="ACP_Tooltip" type="Control" parent="CP_Area"]
+z_index = 2
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("5_stgkr")
+fade_in_delay = 0.3
+collision_mask = 1
+
+[node name="Panel" type="Panel" parent="CP_Area/ACP_Tooltip"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -9.0
+offset_right = 44.0
+offset_bottom = 9.0
+
+[node name="Label2" type="Label" parent="CP_Area/ACP_Tooltip/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 71.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.19, 0.19)
+theme_override_font_sizes/font_size = 22
+text = "It's a box."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ACP_Conveyor" type="Node" parent="CP_Area"]
+script = ExtResource("6_dctoh")
+convey_amount = Vector2(15, 0)
+collision_mask = 2
+metadata/_custom_type_script = "uid://c2yxrg8yr1e5x"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Area"]
+shape = SubResource("RectangleShape2D_tipki")

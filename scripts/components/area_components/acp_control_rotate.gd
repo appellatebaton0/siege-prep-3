@@ -1,0 +1,13 @@
+extends AreaSubComponent
+class_name ControlRotateAreaSubComponent # whew that's a mouthful
+
+@export var positive_input:String = "RotRight"
+@export var negative_input:String = "RotLeft"
+
+@export_range(0.0, 360.0) var rotation_amount:float 
+
+func while_colliding_bodies(bodies:Array[Node2D], delta:float) -> void:
+	if Input.is_action_just_pressed(positive_input):
+		actor.rotate(deg_to_rad(rotation_amount))
+	elif Input.is_action_just_pressed(negative_input):
+		actor.rotate(deg_to_rad(-rotation_amount))
