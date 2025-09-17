@@ -47,11 +47,11 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jo2i1"]
-size = Vector2(15, 15)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jo2i1"]
+size = Vector2(15, 15)
 
 [node name="Conveyor" type="Node2D"]
 script = ExtResource("1_stgkr")
@@ -119,29 +119,11 @@ rotation_amount = 90.0
 collision_mask = 1
 metadata/_custom_type_script = "uid://58vjd3u66x8p"
 
-[node name="ACP_DragNDrop" type="Node" parent="CP_Area" node_paths=PackedStringArray("placement_indicator", "placement_checker")]
+[node name="ACP_DragNDrop" type="Node" parent="CP_Area"]
 script = ExtResource("4_c3xxn")
-disables_function = null
-follow_lerp = 0.55
-grid_locked = true
-grid_size = null
-grid_offset = Vector2(8, 8)
+toggle = true
 collision_mask = 1
-placement_indicator = NodePath("PlacementIndicator")
-placement_checker = NodePath("CP_Area")
 metadata/_custom_type_script = "uid://cp7jolp00vhsj"
-
-[node name="PlacementIndicator" type="Sprite2D" parent="CP_Area/ACP_DragNDrop"]
-z_index = -1
-texture = ExtResource("8_c3xxn")
-
-[node name="CP_Area" parent="CP_Area/ACP_DragNDrop" instance=ExtResource("3_25b0p")]
-collision_layer = 4
-collision_mask = 4
-input_pickable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Area/ACP_DragNDrop/CP_Area"]
-shape = SubResource("RectangleShape2D_jo2i1")
 
 [node name="ACP_Conveyor" type="Node" parent="CP_Area"]
 script = ExtResource("6_dctoh")
@@ -152,5 +134,21 @@ metadata/_custom_type_script = "uid://c2yxrg8yr1e5x"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Area"]
 shape = SubResource("RectangleShape2D_tipki")
 
-[node name="CP_Holdable" type="Node" parent="."]
+[node name="CP_Holdable" type="Node" parent="." node_paths=PackedStringArray("placement_indicator", "placement_checker")]
 script = ExtResource("9_vmec3")
+grid_locked = true
+grid_offset = Vector2(8, 8)
+placement_indicator = NodePath("PlacementIndicator")
+placement_checker = NodePath("CP_Area")
+
+[node name="PlacementIndicator" type="Sprite2D" parent="CP_Holdable"]
+z_index = -1
+texture = ExtResource("8_c3xxn")
+
+[node name="CP_Area" parent="CP_Holdable" instance=ExtResource("3_25b0p")]
+collision_layer = 4
+collision_mask = 4
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Holdable/CP_Area"]
+shape = SubResource("RectangleShape2D_jo2i1")

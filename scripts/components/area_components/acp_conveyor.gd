@@ -6,7 +6,7 @@ var motion_components:Array[MotionComponent] = []
 
 func convey(target:Actor, motion:MotionComponent = null):
 	
-	if area_component.function_disabled():
+	if not actor.is_active():
 		return
 	
 	if motion == null:

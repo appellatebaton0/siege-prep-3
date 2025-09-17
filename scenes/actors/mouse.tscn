@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_4hn06"]
 [ext_resource type="PackedScene" uid="uid://byojuvig761hd" path="res://scenes/components/cp_motion.tscn" id="2_8m7tw"]
 [ext_resource type="Script" uid="uid://c7m8cx6r12svp" path="res://scripts/components/motion_states/ms_mouse.gd" id="3_677v4"]
-[ext_resource type="Script" uid="uid://dsvhrcfk13yey" path="res://scripts/components/cp_holder.gd" id="4_8m7tw"]
+[ext_resource type="PackedScene" uid="uid://bh3rkq5jg66lm" path="res://scenes/components/cp_holder.tscn" id="4_8m7tw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ya4ey"]
 size = Vector2(1, 1)
@@ -22,5 +22,4 @@ metadata/_custom_type_script = "uid://c7m8cx6r12svp"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Motion"]
 shape = SubResource("RectangleShape2D_ya4ey")
 
-[node name="CP_Holder" type="Node2D" parent="."]
-script = ExtResource("4_8m7tw")
+[node name="CP_Holder" parent="." instance=ExtResource("4_8m7tw")]

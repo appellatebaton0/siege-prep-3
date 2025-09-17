@@ -8,6 +8,11 @@ class_name AreaSubComponent
 var overlapping_areas:Array[Area2D]
 var overlapping_bodies:Array[Node2D]
 
+func get_collisions() -> Array[Node2D]:
+	var collisions = overlapping_bodies.duplicate()
+	collisions.append_array(overlapping_areas.duplicate())
+	return collisions
+
 func has_collisions():
 	return len(overlapping_areas) > 0 or len(overlapping_bodies) > 0
 

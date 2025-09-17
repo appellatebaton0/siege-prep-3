@@ -2,74 +2,35 @@ extends AreaSubComponent
 class_name DragNDropAreaSubComponent
 @onready var me:Node = get_me()
 
-var holding:bool = false
-var hold_offset:Vector2
+# Allows an actor to be picked up by the mouse
 
-## A sprite2D to show where the actor will be placed
-@export var placement_indicator:Sprite2D
-## A AreaComponent to check if where the actor will
-## be placed already has something there.
-@export var placement_checker:AreaComponent
-# Where to set the actor down. If the placement checker
-# doesn't suceed, this holds the pick-up position 
-var set_down_position:Vector2
+## Whether to only pick up/down an actor when the mouse is pressed
+@export var toggle:bool = false
 
-## Whether or not holding this actor stops it from functioning
-@export var disables_function:bool = true
+# Needs a HoldableComponent to manage it.
+# This component ONLY tells it to pick it up.
+@onready var holdable_component:HoldableComponent = get_holdable_component()
+func get_holdable_component() -> HoldableComponent:
+	for component in actor.get_components():
+		if component is HoldableComponent:
+			return component
+	return null
 
-## How fast the actor follows the mouse, 0 = none, 1 = instant
-@export_range(0.0, 1.0, 0.01) var follow_lerp:float = 0.5
-
-@onready var original_z_index = actor.z_index
-
-func _ready() -> void:
-	if placement_indicator != null:
-		placement_indicator.visible = grid_locked
-	if placement_checker != null:
-		placement_checker.actor = actor
-
-func _process(delta: float) -> void:
-	actor.z_index = original_z_index + 1 if holding else original_z_index
-	
-	if placement_indicator != null and grid_locked:
-		placement_indicator.global_position = round(((actor.global_position - grid_offset) / grid_size)) * grid_size + grid_offset
-	if placement_checker != null:
-		if grid_locked:
-			placement_checker.me.global_position = round(((actor.global_position - grid_offset) / grid_size)) * grid_size + grid_offset
-		else:
-			placement_checker.me.global_position = actor.global_position
-	
-	if holding:
-		if disables_function:
-			area_component.add_function_disabler(me)
+func on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	# If the mouse is overlapping (provided mouse layers are set right)
+	# and the event is right
+	if has_collisions() and event is InputEventMouseButton:
 		
-		actor.global_position = lerp(actor.global_position, actor.get_global_mouse_position() + hold_offset, follow_lerp)
-	else:
-		if disables_function:
-			area_component.remove_function_disabler(me)
-		
-		if grid_locked:
+		# If looking for any input,
+		# or toggled and is a click down
+		if not toggle or event.is_pressed():
 			
-
-
-
-func while_no_colliding_bodies(_delta:float) -> void:
-	holding = false
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		holding = event.is_pressed()
-		
-		if holding:
-			## SFX: play pickup sound
-			set_down_position = actor.global_position
-		elif placement_checker != null:
-			if not placement_checker.has_overlapping_collisions():
-				## SFX: play position fail
-				set_down_position = actor.global_position
-			else:
-				## SFX: play position suceed / place
-				pass
-			actor.global_position = set_down_position
-		
-		hold_offset = actor.global_position - actor.get_global_mouse_position()
+			# Look for a HolderComponent in the current collisions
+			for collision in get_collisions():
+				var node = collision # Abstract type cause dum
+				if node is Component:
+					for component in node.actor.get_components():
+						if component is HolderComponent:
+							
+							# If you find one, get uppies.
+							holdable_component.hold_by(component)

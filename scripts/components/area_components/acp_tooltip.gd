@@ -8,7 +8,7 @@ var me:Control = get_me()
 var fade_in_timer:float = 0.0
 
 func while_any_collisions(delta:float):
-	if not area_component.function_disabled():
+	if actor.is_active():
 		me.global_position = me.get_global_mouse_position()
 		me.rotation = -actor.rotation
 		

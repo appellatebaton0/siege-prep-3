@@ -2,18 +2,6 @@ extends Component
 class_name AreaComponent
 var me:Area2D = get_me()
 
-# IF most of the functionality should be disabled.
-# For if the actor is being held by the mouse, for example.
-var function_disablers:Array = []
-func add_function_disabler(node:Node):
-	if not function_disablers.has(node):
-		function_disablers.append(node)
-func remove_function_disabler(node:Node):
-	if function_disablers.has(node):
-		function_disablers.erase(node)
-func function_disabled() -> bool:
-	return len(function_disablers) > 0
-
 func has_overlapping_collisions() -> bool:
 	var bodies = me.get_overlapping_bodies()
 	var areas = me.get_overlapping_areas()
