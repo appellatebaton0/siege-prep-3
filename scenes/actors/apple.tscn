@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://0xco1arf05wp" path="res://scripts/motion_states/ms_friction.gd" id="5_4ejay"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_choun"]
-size = Vector2(15, 15)
+size = Vector2(7, 7)
 
 [node name="Apple" type="Node2D"]
 script = ExtResource("1_nni3p")
@@ -19,9 +19,10 @@ texture = ExtResource("3_ljgr5")
 
 [node name="CP_Motion" parent="." instance=ExtResource("4_fpwmc")]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Motion"]
+position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_choun")
 
 [node name="MS_Friction" type="Node" parent="CP_Motion"]

@@ -15,9 +15,9 @@ func convey(target:Actor, motion:MotionComponent = null):
 				motion = component
 				if not motion_components.has(component):
 					motion_components.append(component)
-	
-	motion.overrider = self
-	motion.me.velocity = convey_amount.rotated(actor.rotation)
+	if motion.overrider == null:
+		motion.overrider = self
+		motion.me.velocity = convey_amount.rotated(actor.rotation)
 
 func _process(delta: float) -> void:
 	

@@ -8,6 +8,9 @@ class_name AreaSubComponent
 var overlapping_areas:Array[Area2D]
 var overlapping_bodies:Array[Node2D]
 
+func has_collisions():
+	return len(overlapping_areas) > 0 or len(overlapping_bodies) > 0
+
 func on_area_entered(area:Area2D) -> void:
 	pass
 func on_body_entered(body:Node2D) -> void:
