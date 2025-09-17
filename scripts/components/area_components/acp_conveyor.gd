@@ -13,19 +13,22 @@ func convey(target:Actor, motion:MotionComponent = null):
 		for component in target.get_components():
 			if component is MotionComponent:
 				motion = component
-				if not motion_components.has(component):
-					motion_components.append(component)
+	
+	
 	if motion.overrider == null:
+		if not motion_components.has(motion):
+			motion_components.append(motion)
+		
 		motion.overrider = self
 		motion.me.velocity = convey_amount.rotated(actor.rotation)
 
 func _process(delta: float) -> void:
-	
 	# Undo the override
 	for component in motion_components:
 		# IF the motioncomponent isn't overlapping anymore
-		if not overlapping_areas.has(component):
+		if not overlapping_areas.has(component) and not overlapping_bodies.has(component):
 			component.overrider = null
+			motion_components.erase(component)
 			component = null
 
 func while_colliding_areas(areas:Array[Area2D], delta:float) -> void:

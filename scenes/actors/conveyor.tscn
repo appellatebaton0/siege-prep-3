@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1o1g8l0yp175"]
+[gd_scene load_steps=18 format=3 uid="uid://c1o1g8l0yp175"]
 
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_stgkr"]
 [ext_resource type="Texture2D" uid="uid://c01mca2tmsxsi" path="res://assets/conveyor.png" id="2_jo2i1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bciur05p7y6v0" path="res://scripts/components/area_components/acp_tooltip.gd" id="5_stgkr"]
 [ext_resource type="Script" uid="uid://c2yxrg8yr1e5x" path="res://scripts/components/area_components/acp_conveyor.gd" id="6_dctoh"]
 [ext_resource type="Texture2D" uid="uid://dwc6mu4td8qme" path="res://assets/placement_indicator.png" id="8_c3xxn"]
+[ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="9_vmec3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8y0u"]
 atlas = ExtResource("2_jo2i1")
@@ -67,6 +68,7 @@ collision_layer = 4
 collision_mask = 7
 
 [node name="ACP_Tooltip" type="Control" parent="CP_Area"]
+visible = false
 z_index = 2
 z_as_relative = false
 layout_mode = 3
@@ -119,12 +121,14 @@ metadata/_custom_type_script = "uid://58vjd3u66x8p"
 
 [node name="ACP_DragNDrop" type="Node" parent="CP_Area" node_paths=PackedStringArray("placement_indicator", "placement_checker")]
 script = ExtResource("4_c3xxn")
-placement_indicator = NodePath("PlacementIndicator")
-placement_checker = NodePath("CP_Area")
+disables_function = null
 follow_lerp = 0.55
 grid_locked = true
+grid_size = null
 grid_offset = Vector2(8, 8)
 collision_mask = 1
+placement_indicator = NodePath("PlacementIndicator")
+placement_checker = NodePath("CP_Area")
 metadata/_custom_type_script = "uid://cp7jolp00vhsj"
 
 [node name="PlacementIndicator" type="Sprite2D" parent="CP_Area/ACP_DragNDrop"]
@@ -147,3 +151,6 @@ metadata/_custom_type_script = "uid://c2yxrg8yr1e5x"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Area"]
 shape = SubResource("RectangleShape2D_tipki")
+
+[node name="CP_Holdable" type="Node" parent="."]
+script = ExtResource("9_vmec3")

@@ -20,14 +20,6 @@ var set_down_position:Vector2
 ## How fast the actor follows the mouse, 0 = none, 1 = instant
 @export_range(0.0, 1.0, 0.01) var follow_lerp:float = 0.5
 
-## Whether or not to lock to a grid when dropped
-@export var grid_locked:bool = false
-
-## The size of each grid cell
-@export var grid_size:Vector2 = Vector2(16,16)
-## The offset of the grid
-@export var grid_offset:Vector2 = Vector2(0,0)
-
 @onready var original_z_index = actor.z_index
 
 func _ready() -> void:
@@ -57,7 +49,7 @@ func _process(delta: float) -> void:
 			area_component.remove_function_disabler(me)
 		
 		if grid_locked:
-			actor.global_position = round(((actor.global_position - grid_offset) / grid_size)) * grid_size + grid_offset
+			
 
 
 

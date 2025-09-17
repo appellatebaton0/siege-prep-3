@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://chm3si0nicqxd"]
+[gd_scene load_steps=9 format=4 uid="uid://chm3si0nicqxd"]
 
 [ext_resource type="Texture2D" uid="uid://dds73m1ns0ua5" path="res://assets/tileset.png" id="1_85g3d"]
 [ext_resource type="PackedScene" uid="uid://c1o1g8l0yp175" path="res://scenes/actors/conveyor.tscn" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://b5ox11s6uu2e7" path="res://scenes/actors/apple.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u0g41egsprk" path="res://scenes/actors/mouse.tscn" id="4_tefeu"]
+[ext_resource type="Script" uid="uid://clxnv4jp2t4w1" path="res://scripts/interface.gd" id="5_tefeu"]
+[ext_resource type="Script" uid="uid://wflj6dnn23uy" path="res://scripts/elements/element.gd" id="6_o6xl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("1_85g3d")
@@ -27,28 +29,28 @@ zoom = Vector2(3.5, 3.5)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Conveyor" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(-24, -24)
+position = Vector2(25, 8)
 
 [node name="Conveyor2" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(-47, -24)
+position = Vector2(26, -8)
 
 [node name="Conveyor3" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(-69, -24)
+position = Vector2(9, -8)
 
 [node name="Conveyor4" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(-76, -5)
+position = Vector2(-7, -7)
 
 [node name="Conveyor5" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(-71, 37)
+position = Vector2(-8, 9)
 
 [node name="Conveyor6" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(-21, 41)
+position = Vector2(-10, 25)
 
 [node name="Conveyor7" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(13, 40)
+position = Vector2(24, 24)
 
 [node name="Conveyor8" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(49, 40)
+position = Vector2(6, 24)
 
 [node name="Apple" parent="." instance=ExtResource("3_tbgi4")]
 position = Vector2(-3, 1)
@@ -58,3 +60,39 @@ position = Vector2(10, 0)
 
 [node name="Mouse" parent="." instance=ExtResource("4_tefeu")]
 position = Vector2(-118, 0)
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_tefeu")
+metadata/_custom_type_script = "uid://clxnv4jp2t4w1"
+
+[node name="Element" type="Node" parent="Interface"]
+script = ExtResource("6_o6xl0")
+metadata/_custom_type_script = "uid://wflj6dnn23uy"
+
+[node name="Element2" type="Node" parent="Interface/Element"]
+script = ExtResource("6_o6xl0")
+metadata/_custom_type_script = "uid://wflj6dnn23uy"
+
+[node name="Element3" type="Node" parent="Interface/Element/Element2"]
+script = ExtResource("6_o6xl0")
+metadata/_custom_type_script = "uid://wflj6dnn23uy"
+
+[node name="Element4" type="Node" parent="Interface/Element/Element2/Element3"]
+script = ExtResource("6_o6xl0")
+metadata/_custom_type_script = "uid://wflj6dnn23uy"
+
+[node name="Element3" type="Node" parent="Interface"]
+script = ExtResource("6_o6xl0")
+metadata/_custom_type_script = "uid://wflj6dnn23uy"
+
+[node name="Element4" type="Node" parent="Interface"]
+script = ExtResource("6_o6xl0")
+metadata/_custom_type_script = "uid://wflj6dnn23uy"
+
+[node name="Element5" type="Node" parent="Interface"]
+script = ExtResource("6_o6xl0")
+metadata/_custom_type_script = "uid://wflj6dnn23uy"
