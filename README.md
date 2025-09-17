@@ -17,3 +17,6 @@ Here's a list of things added for this game thus far;
 - MS_Friction -> Sets the actor's velocity to zero unless something is actively trying to move it
 - Interface -> Actors but for Controls instead of Node2Ds
 - Element -> Components but for Interfaces instead of Actors
+- EM_Button -> Element that's literally just a button rn
+- BEM_InvSlot -> A fully functional self-contained inventory slot element for actors
+- CP_Slotable -> Provides an actor with an ID for inventory slots. Needed to put an actor in an inventory.

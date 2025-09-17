@@ -55,6 +55,7 @@ func _process(delta: float) -> void:
 	# Raise the z_index by one while held
 	actor.z_index = original_z_index + 1 if held else original_z_index
 	
+	placement_indicator.visible = actor.visible
 	# Position the placement_indicator and checker
 	if placement_indicator != null and grid_locked:
 		placement_indicator.global_position = round(((actor.global_position - grid_offset) / grid_size)) * grid_size + grid_offset

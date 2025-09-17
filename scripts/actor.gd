@@ -18,7 +18,7 @@ func remove_active_lock(node:Node) -> bool:
 		return true
 	return false
 func is_active() -> bool:
-	return len(active_lockers) > 0
+	return len(active_lockers) == 0
 
 @onready var components:Array[Component] = get_components()
 

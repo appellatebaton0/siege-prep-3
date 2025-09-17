@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c1o1g8l0yp175"]
+[gd_scene load_steps=19 format=3 uid="uid://c1o1g8l0yp175"]
 
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_stgkr"]
 [ext_resource type="Texture2D" uid="uid://c01mca2tmsxsi" path="res://assets/conveyor.png" id="2_jo2i1"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://c2yxrg8yr1e5x" path="res://scripts/components/area_components/acp_conveyor.gd" id="6_dctoh"]
 [ext_resource type="Texture2D" uid="uid://dwc6mu4td8qme" path="res://assets/placement_indicator.png" id="8_c3xxn"]
 [ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="9_vmec3"]
+[ext_resource type="Script" uid="uid://mjlj0npxctfg" path="res://scenes/components/cp_slotable.gd" id="11_dctoh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8y0u"]
 atlas = ExtResource("2_jo2i1")
@@ -152,3 +153,7 @@ input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Holdable/CP_Area"]
 shape = SubResource("RectangleShape2D_jo2i1")
+
+[node name="CP_Slotable" type="Node" parent="."]
+script = ExtResource("11_dctoh")
+id = "Conveyor"

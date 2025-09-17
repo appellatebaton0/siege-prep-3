@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=4 uid="uid://chm3si0nicqxd"]
+[gd_scene load_steps=10 format=4 uid="uid://chm3si0nicqxd"]
 
 [ext_resource type="Texture2D" uid="uid://dds73m1ns0ua5" path="res://assets/tileset.png" id="1_85g3d"]
 [ext_resource type="PackedScene" uid="uid://c1o1g8l0yp175" path="res://scenes/actors/conveyor.tscn" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://b5ox11s6uu2e7" path="res://scenes/actors/apple.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://5u0g41egsprk" path="res://scenes/actors/mouse.tscn" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://clxnv4jp2t4w1" path="res://scripts/interface.gd" id="5_tefeu"]
-[ext_resource type="Script" uid="uid://wflj6dnn23uy" path="res://scripts/elements/element.gd" id="6_o6xl0"]
+[ext_resource type="Script" uid="uid://coxxm0jngdb8b" path="res://scripts/elements/em_button.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://dqvrgqoepmn4o" path="res://scripts/elements/bem_invslot.gd" id="7_o6xl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("1_85g3d")
@@ -25,8 +26,6 @@ tile_set = SubResource("TileSet_tefeu")
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(3.5, 3.5)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Conveyor" parent="." instance=ExtResource("2_jyhfs")]
 position = Vector2(25, 8)
@@ -61,38 +60,55 @@ position = Vector2(10, 0)
 [node name="Mouse" parent="." instance=ExtResource("4_tefeu")]
 position = Vector2(-118, 0)
 
-[node name="Interface" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UserInterface" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -271.0
+grow_horizontal = 0
+grow_vertical = 2
 script = ExtResource("5_tefeu")
 metadata/_custom_type_script = "uid://clxnv4jp2t4w1"
 
-[node name="Element" type="Node" parent="Interface"]
-script = ExtResource("6_o6xl0")
-metadata/_custom_type_script = "uid://wflj6dnn23uy"
+[node name="Panel" type="Panel" parent="CanvasLayer/UserInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Element2" type="Node" parent="Interface/Element"]
-script = ExtResource("6_o6xl0")
-metadata/_custom_type_script = "uid://wflj6dnn23uy"
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UserInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="Element3" type="Node" parent="Interface/Element/Element2"]
-script = ExtResource("6_o6xl0")
-metadata/_custom_type_script = "uid://wflj6dnn23uy"
+[node name="Inventory" type="GridContainer" parent="CanvasLayer/UserInterface/MarginContainer"]
+layout_mode = 2
+columns = 2
+script = ExtResource("5_tefeu")
 
-[node name="Element4" type="Node" parent="Interface/Element/Element2/Element3"]
-script = ExtResource("6_o6xl0")
-metadata/_custom_type_script = "uid://wflj6dnn23uy"
+[node name="EM_Button" type="Button" parent="CanvasLayer/UserInterface/MarginContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("6_tefeu")
 
-[node name="Element3" type="Node" parent="Interface"]
-script = ExtResource("6_o6xl0")
-metadata/_custom_type_script = "uid://wflj6dnn23uy"
-
-[node name="Element4" type="Node" parent="Interface"]
-script = ExtResource("6_o6xl0")
-metadata/_custom_type_script = "uid://wflj6dnn23uy"
-
-[node name="Element5" type="Node" parent="Interface"]
-script = ExtResource("6_o6xl0")
-metadata/_custom_type_script = "uid://wflj6dnn23uy"
+[node name="BEM_InvSlot" type="Node" parent="CanvasLayer/UserInterface/MarginContainer/Inventory/EM_Button" node_paths=PackedStringArray("main", "mouse_actor")]
+script = ExtResource("7_o6xl0")
+initial_holding = ExtResource("2_jyhfs")
+amount = 3
+max_amount = 3
+main = NodePath("../../../../../..")
+mouse_actor = NodePath("../../../../../../Mouse")
