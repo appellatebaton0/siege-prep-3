@@ -47,3 +47,4 @@ RotRight={
 2d_physics/layer_3="Conveyor"
 2d_physics/layer_4="Glaze"
 2d_physics/layer_5="Topping"
+2d_physics/layer_6="Output"

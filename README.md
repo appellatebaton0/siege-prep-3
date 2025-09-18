@@ -5,6 +5,7 @@ The idea is an autumn-themed game about producing a steady supply of candied app
 
 Additionally, I'll probably add a LOT to the composition framework I've been building on game by game...
 ## Here's a list of things added for this game thus far;
+### General
 - CP_Area -> Provides an Area2D for other nodes
 	- All existing Area2D Components have become ACPs that work with this instead
 - CP_AreaSub -> Superclass for AreaSubComponents(ACP). Provides paths from the AreaComponent's methods.
@@ -24,5 +25,9 @@ Additionally, I'll probably add a LOT to the composition framework I've been bui
 - CP_Resource -> Holds any resource for reference by components
 - EM_Label -> A dynamic label that can read values from elements and display them
 - EM_TextureRect -> A dynamic TextureRect that can display textures from elements and their values (like referenced actors)
+- Conditions -> A resource system to dynamically make conditions
+    - OR, AND, NOT -> Pretty self explanatory conditions. Allow subconditions.
+    - ACTOR -> Lets you see if an actor has a component, and grab *any value from a variable in that component*. 
 
-- RS_Apple -> A game-specific resource to hold an apple's type, toppings, and glaze.
+### Game specific
+-  RS_Apple -> A game-specific resource to hold an apple's type, toppings, and glaze.

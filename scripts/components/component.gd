@@ -23,6 +23,20 @@ func find_actor() -> Actor:
 	
 	return null
 
+# Get components
+func get_components(depth:int = 4) -> Array[Component]:
+	if depth <= 0:
+		return []
+	
+	var components:Array[Component]
+		
+	for child in get_children():
+		if child is Component:
+			components.append(child)
+			components.append_array(child.get_components(depth - 1))
+	
+	return components
+
 ## Get the self as a Variant, for typecasting that
 ## bypasses faulty Intelli-sense
 func get_me():

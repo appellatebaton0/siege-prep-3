@@ -96,7 +96,7 @@ script = ExtResource("1_stgkr")
 static_texture = SubResource("AtlasTexture_tyrg2")
 metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="CP_AnimatedSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_dp3eg")
 autoplay = "default"
