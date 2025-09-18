@@ -1,6 +1,8 @@
 extends AreaSubComponent
 class_name DragNDropAreaSubComponent
 @onready var me:Node = get_me()
+func _init() -> void:
+	component_id = "DragNDropAreaSub"
 
 # Allows an actor to be picked up by the mouse
 

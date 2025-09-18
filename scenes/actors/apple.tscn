@@ -1,21 +1,44 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5ox11s6uu2e7"]
+[gd_scene load_steps=12 format=3 uid="uid://b5ox11s6uu2e7"]
 
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_nni3p"]
 [ext_resource type="PackedScene" uid="uid://dnd4kisf8wjau" path="res://scenes/components/cp_sprite.tscn" id="2_eirvq"]
-[ext_resource type="Texture2D" uid="uid://dkwh0waqppg2t" path="res://assets/apple.png" id="3_ljgr5"]
 [ext_resource type="PackedScene" uid="uid://byojuvig761hd" path="res://scenes/components/cp_motion.tscn" id="4_fpwmc"]
 [ext_resource type="Script" uid="uid://0xco1arf05wp" path="res://scripts/components/motion_states/ms_friction.gd" id="5_4ejay"]
+[ext_resource type="Texture2D" uid="uid://41agu5prr3qa" path="res://assets/chocolate.png" id="6_4ejay"]
+[ext_resource type="Script" uid="uid://6idd405bl3x7" path="res://scripts/components/cp_resource.gd" id="6_eirvq"]
+[ext_resource type="Texture2D" uid="uid://cr7qyvwkw7w36" path="res://assets/red_delicious.png" id="7_fpwmc"]
+[ext_resource type="Script" uid="uid://sjerois4ujyy" path="res://scripts/resources/rs_apple.gd" id="7_ljgr5"]
+[ext_resource type="Texture2D" uid="uid://dk5lid4qon5xk" path="res://assets/sprinkles.png" id="8_6prhf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_choun"]
 size = Vector2(7, 7)
 
+[sub_resource type="Resource" id="Resource_fpwmc"]
+script = ExtResource("7_ljgr5")
+type_sprite = ExtResource("7_fpwmc")
+glaze_sprite = ExtResource("6_4ejay")
+topping_sprite = ExtResource("8_6prhf")
+metadata/_custom_type_script = "uid://sjerois4ujyy"
+
 [node name="Apple" type="Node2D"]
+z_index = 2
 script = ExtResource("1_nni3p")
 metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
 
-[node name="CP_Sprite" parent="." instance=ExtResource("2_eirvq")]
+[node name="CP_Sprite" parent="." node_paths=PackedStringArray("resource_component") instance=ExtResource("2_eirvq")]
 texture_filter = 1
-texture = ExtResource("3_ljgr5")
+resource_component = NodePath("../CP_Resource")
+resource_value = "type_sprite"
+
+[node name="CP_Sprite2" parent="." node_paths=PackedStringArray("resource_component") instance=ExtResource("2_eirvq")]
+texture_filter = 1
+resource_component = NodePath("../CP_Resource")
+resource_value = "glaze_sprite"
+
+[node name="CP_Sprite3" parent="." node_paths=PackedStringArray("resource_component") instance=ExtResource("2_eirvq")]
+texture_filter = 1
+resource_component = NodePath("../CP_Resource")
+resource_value = "topping_sprite"
 
 [node name="CP_Motion" parent="." instance=ExtResource("4_fpwmc")]
 collision_layer = 2
@@ -23,7 +46,6 @@ collision_mask = 6
 motion_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Motion"]
-position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_choun")
 
 [node name="MS_Friction" type="Node" parent="CP_Motion"]
@@ -31,3 +53,8 @@ script = ExtResource("5_4ejay")
 friction = 10.0
 no_diagonals = true
 metadata/_custom_type_script = "uid://0xco1arf05wp"
+
+[node name="CP_Resource" type="Node" parent="."]
+script = ExtResource("6_eirvq")
+id = "Apple"
+resource = SubResource("Resource_fpwmc")

@@ -6,6 +6,8 @@ class_name Actor
 
 # See also: Interface for Controls -> Elements
 
+@export var static_texture:Texture
+
 var active_lockers:Array[Node]
 func add_active_lock(node:Node) -> bool:
 	if not active_lockers.has(node):

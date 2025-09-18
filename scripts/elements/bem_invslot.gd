@@ -1,8 +1,8 @@
 extends Element
 class_name InvSlotButtonElement
 
-signal amount_changed(to:int)
-signal holding_changed(to:Actor)
+signal amount_changed()
+signal holding_changed()
 
 ## Define an initially held Actor
 @export var initial_holding:PackedScene
@@ -36,12 +36,32 @@ func get_actor_slotable(actor:Actor) -> SlotableComponent:
 		if component is SlotableComponent:
 			return component
 	return null
+## Get a valid actor's holdablecomponent
+func get_actor_holdable(actor:Actor) -> HoldableComponent:
+	for component in actor.get_components():
+		if component is HoldableComponent:
+			return component
+	return null
 ## If an actor is of the same type
 func check_actor_match(actor:Actor) -> bool:
 	if not check_actor_validity(actor) or holding == null:
 		return false
 	return get_actor_slotable(actor).id == get_actor_slotable(holding).id
 
+func change_amount(to:int):
+	amount = to
+	amount_changed.emit()
+
+func modify_actor(target:Actor, enable:bool = false):
+	if target.get_parent() == null:
+			main.add_child(target)
+	if enable:
+		target.remove_active_lock(self)
+		target.show() 
+	else:
+		target.global_position = Vector2(0, 100000)
+		target.add_active_lock(self)
+		target.hide()
 func _ready() -> void:
 	# Set the button element
 	button_element = button if button != null else (get_parent() if get_parent() is EM_Button else null)
@@ -63,11 +83,11 @@ func _ready() -> void:
 		var initial_hold:Actor = initial_holding.instantiate()
 		if check_actor_validity(initial_hold):
 			# Modify it accordingly
-			main.add_child(initial_hold)
-			initial_hold.add_active_lock(self)
-			initial_hold.hide()
+			modify_actor(initial_hold)
+			initial_hold.z_index = 0
 			
 			holding = initial_hold
+			holding_changed.emit()
 		else:
 			initial_hold.queue_free()
 
@@ -77,11 +97,11 @@ func _on_pressed():
 		# Take the actor from the mouse
 		holding = mouse_holder.holding
 		mouse_holder.holding = null
-		amount += 1
+		change_amount(amount + 1)
+		holding_changed.emit()
 		
 		# Modify it accordingly
-		holding.add_active_lock(self)
-		holding.hide()
+		modify_actor(holding)
 	# Trying to put something in a occupied slot
 	elif amount > 0 and mouse_holder.holding != null and check_actor_match(mouse_holder.holding) and amount < max_amount:
 		# Free it from this mortal coil
@@ -89,32 +109,30 @@ func _on_pressed():
 		
 		# Take the actor from the mouse
 		mouse_holder.holding = null
-		amount += 1
+		change_amount(amount + 1)
+		amount_changed.emit(amount)
 	# Trying to take something from an occupied slot
 	elif amount > 0 and mouse_holder.holding == null:
-		print(amount)
 		# Give an actor to the mouse
 		if amount > 1:
 			# Make a new one
 			var new = holding.duplicate()
 			
 			# Modify it accordingly
-			new.remove_active_lock(self)
-			new.show()
-			main.add_child(new)
+			modify_actor(new, true)
+			new.global_position = mouse_actor.global_position
+			
 			
 			# Give it to the mouse
-			mouse_holder.holding = new
-			amount -= 1
+			get_actor_holdable(new).hold_by(mouse_holder)
+			change_amount(amount - 1)
 		else: # Only got one :(
 			# Modify it accordingly
-			holding.remove_active_lock(self)
-			holding.show()
-			
-			if holding.get_parent() == null:
-				main.add_child(holding)
+			modify_actor(holding, true)
+			holding.global_position = mouse_actor.global_position
 			
 			# Give it to the mouse
-			mouse_holder.holding = holding
+			get_actor_holdable(holding).hold_by(mouse_holder)
 			holding = null
-			amount -= 1
+			holding_changed.emit()
+			change_amount(amount - 1)

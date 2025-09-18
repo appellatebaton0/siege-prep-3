@@ -2,6 +2,9 @@ extends Component
 class_name AreaComponent
 var me:Area2D = get_me()
 
+func _init() -> void:
+	component_id = "AnimatedSprite"
+
 func has_overlapping_collisions() -> bool:
 	var bodies = me.get_overlapping_bodies()
 	var areas = me.get_overlapping_areas()

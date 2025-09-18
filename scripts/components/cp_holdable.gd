@@ -1,5 +1,7 @@
 extends Component
 class_name HoldableComponent
+func _init() -> void:
+	component_id = "Holdable"
 
 ## Whether or not to lock to a grid when dropped
 @export var grid_locked:bool = false
@@ -8,6 +10,11 @@ class_name HoldableComponent
 @export var grid_size:Vector2 = Vector2(16,16)
 ## The offset of the grid
 @export var grid_offset:Vector2 = Vector2(0,0)
+
+@export var placement_visibility_limits = {
+	"x": Vector2(0,0),
+	"y": Vector2(0,0)
+}
 
 ## A sprite2D to show where the actor will be placed
 @export var placement_indicator:Sprite2D
@@ -34,7 +41,7 @@ func hold_by(holder:HolderComponent) -> bool:
 	
 	# If it was placed and it shouldn't have been
 	# Pick it right back up again
-	if held and placement_checker.has_overlapping_collisions():
+	if not held and placement_checker.has_overlapping_collisions():
 		held = holder.hold(actor)
 	
 	
@@ -52,13 +59,16 @@ func _process(delta: float) -> void:
 		# Round the actor's position to the grid
 		actor.global_position = round(((actor.global_position - grid_offset) / grid_size)) * grid_size + grid_offset
 	
-	# Raise the z_index by one while held
-	actor.z_index = original_z_index + 1 if held else original_z_index
-	
-	placement_indicator.visible = actor.visible
+	# Raise the z_index while held
+	actor.z_index = original_z_index + 3 if held else original_z_index
+
 	# Position the placement_indicator and checker
 	if placement_indicator != null and grid_locked:
+		
 		placement_indicator.global_position = round(((actor.global_position - grid_offset) / grid_size)) * grid_size + grid_offset
+		var in_x_bounds = (placement_indicator.global_position.x > placement_visibility_limits["x"].x and placement_indicator.global_position.x < placement_visibility_limits["x"].y)
+		var in_y_bounds = (placement_indicator.global_position.y > placement_visibility_limits["y"].x and placement_indicator.global_position.y < placement_visibility_limits["y"].y)
+		placement_indicator.visible = actor.visible and in_x_bounds and in_y_bounds
 	if placement_checker != null:
 		if grid_locked:
 			placement_checker.me.global_position = round(((actor.global_position - grid_offset) / grid_size)) * grid_size + grid_offset

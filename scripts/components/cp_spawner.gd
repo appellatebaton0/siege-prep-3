@@ -1,6 +1,8 @@
 extends Component
 class_name SpawnerComponent
 var me:Node2D = get_me()
+func _init() -> void:
+	component_id = "Spawner"
 
 @onready var options_component:OptionsSpawnerComponent
 @onready var position_component:PositionSpawnerComponent

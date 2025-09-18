@@ -1,5 +1,7 @@
 extends AreaSubComponent
 class_name KnockbackAreaSubComponent
+func _init() -> void:
+	component_id = "KnockbackAreaSub"
 
 @export var amount:float = 0.0
 @export var cooldown:float = 0.0

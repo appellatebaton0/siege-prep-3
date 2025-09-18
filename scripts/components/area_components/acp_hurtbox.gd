@@ -1,6 +1,8 @@
 extends AreaSubComponent
 class_name HurtboxAreaSubComponent
 var me:Area2D = get_me()
+func _init() -> void:
+	component_id = "HurtboxAreaSub"
 
 signal got_hurt
 signal clicked_on

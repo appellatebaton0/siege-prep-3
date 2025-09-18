@@ -1,9 +1,13 @@
 extends Component
 class_name HolderComponent
 var me:Node2D = get_me()
+func _init() -> void:
+	component_id = "Holder"
 
 var holding:Actor = null
 var hold_offset:Vector2 = Vector2.ZERO
+
+@export var hold_max_distance:float = 8.0
 
 # Picking up and putting down
 # Returns whether or not target was picked up
@@ -22,3 +26,5 @@ func hold(target:Actor) -> bool:
 func _process(delta: float) -> void:
 	if holding != null:
 		holding.global_position = me.global_position + hold_offset
+		if hold_offset.distance_to(Vector2.ZERO) > hold_max_distance:
+			hold_offset /= 1.05

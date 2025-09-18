@@ -1,4 +1,15 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dsqsp4yy41d"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dsqsp4yy41d"]
+
+[ext_resource type="FontFile" uid="uid://b1yamwmxwedf2" path="res://assets/fs-pixel-sans-unicode-regular.regular.ttf" id="1_5x3i2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wl1kw"]
+bg_color = Color(0.4, 0.1712, 0.088, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x3i2"]
+bg_color = Color(0.513726, 0.223529, 0.113725, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lu33j"]
+bg_color = Color(0.31, 0.13268, 0.0682, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_y61vb"]
 color = Color(0.513726, 0.223529, 0.109804, 1)
@@ -7,20 +18,20 @@ grow_end = -15.0
 thickness = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y61vb"]
-bg_color = Color(0.921569, 0.666667, 0.27451, 1)
+bg_color = Color(0.713726, 0.372549, 0.129412, 1)
 border_width_left = 7
 border_width_top = 7
 border_width_right = 7
 border_width_bottom = 7
-border_color = Color(0.839216, 0.521569, 0.196078, 1)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-corner_detail = 2
+border_color = Color(0.513726, 0.223529, 0.113725, 1)
+corner_detail = 1
 anti_aliasing = false
 
 [resource]
+Button/styles/hover = SubResource("StyleBoxFlat_wl1kw")
+Button/styles/normal = SubResource("StyleBoxFlat_5x3i2")
+Button/styles/pressed = SubResource("StyleBoxFlat_lu33j")
 HSeparator/styles/separator = SubResource("StyleBoxLine_y61vb")
 Label/colors/font_color = Color(0.513726, 0.223529, 0.113725, 1)
+Label/fonts/font = ExtResource("1_5x3i2")
 Panel/styles/panel = SubResource("StyleBoxFlat_y61vb")

@@ -1,11 +1,12 @@
 extends AreaSubComponent
 class_name ConveyorAreaSubComponent
+func _init() -> void:
+	component_id = "ConveyorAreaSub"
 
 @export var convey_amount:Vector2 = Vector2(1, 0)
 var motion_components:Array[MotionComponent] = []
 
 func convey(target:Actor, motion:MotionComponent = null):
-	
 	if not actor.is_active():
 		return
 	
@@ -14,15 +15,23 @@ func convey(target:Actor, motion:MotionComponent = null):
 			if component is MotionComponent:
 				motion = component
 	
-	
-	if motion.overrider == null:
+	if motion.overrider == null or motion.overrider == self:
 		if not motion_components.has(motion):
 			motion_components.append(motion)
 		
 		motion.overrider = self
+		
 		motion.me.velocity = convey_amount.rotated(actor.rotation)
 
 func _process(delta: float) -> void:
+	
+	# IF deactivated, get rid of all overrides
+	if not actor.is_active():
+		for component in motion_components:
+			component.overrider = null
+			motion_components.erase(component)
+			
+	
 	# Undo the override
 	for component in motion_components:
 		var object = component
@@ -31,12 +40,12 @@ func _process(delta: float) -> void:
 			if not overlapping_bodies.has(component):
 				component.overrider = null
 				motion_components.erase(component)
-				component = null
+				# component = null
 		elif object is Area2D:
 			if not overlapping_areas.has(component):
 				component.overrider = null
 				motion_components.erase(component)
-				component = null
+				# component = null
 
 func while_colliding_areas(areas:Array[Area2D], delta:float) -> void:
 	for area in areas:

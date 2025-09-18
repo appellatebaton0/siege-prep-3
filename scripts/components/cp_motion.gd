@@ -1,6 +1,8 @@
 extends Component
 class_name MotionComponent
 var me:CharacterBody2D = get_me()
+func _init() -> void:
+	component_id = "Motion"
 
 # Allows the motioncomponent to be overridden by any node
 var overrider:Node = null

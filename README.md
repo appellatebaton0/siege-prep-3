@@ -4,7 +4,7 @@ The game I'm making for Hackclub's Siege - Prep Week 3 AND Godot Wild Jam #85
 The idea is an autumn-themed game about producing a steady supply of candied apples to meet customer demand.
 
 Additionally, I'll probably add a LOT to the composition framework I've been building on game by game...
-Here's a list of things added for this game thus far;
+## Here's a list of things added for this game thus far;
 - CP_Area -> Provides an Area2D for other nodes
 	- All existing Area2D Components have become ACPs that work with this instead
 - CP_AreaSub -> Superclass for AreaSubComponents(ACP). Provides paths from the AreaComponent's methods.
@@ -20,3 +20,9 @@ Here's a list of things added for this game thus far;
 - EM_Button -> Element that's literally just a button rn
 - BEM_InvSlot -> A fully functional self-contained inventory slot element for actors
 - CP_Slotable -> Provides an actor with an ID for inventory slots. Needed to put an actor in an inventory.
+- CP_AnimatedSprite -> An animatedsprite with support for syncing globally with others.
+- CP_Resource -> Holds any resource for reference by components
+- EM_Label -> A dynamic label that can read values from elements and display them
+- EM_TextureRect -> A dynamic TextureRect that can display textures from elements and their values (like referenced actors)
+
+- RS_Apple -> A game-specific resource to hold an apple's type, toppings, and glaze.

@@ -1,6 +1,15 @@
 extends Node
 class_name Component
 
+var component_id:String = "Component"
+
+func _init():
+	## Functionless components are not allowed
+	## OR 
+	## There's a Component without a initialize
+	## function for its component id.
+	assert(false)
+
 ## The actor the component belongs to
 @onready var actor:Actor = find_actor()
 func find_actor() -> Actor:

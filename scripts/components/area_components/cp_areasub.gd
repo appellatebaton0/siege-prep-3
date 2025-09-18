@@ -1,5 +1,7 @@
 extends Component
 class_name AreaSubComponent
+func _init() -> void:
+	component_id = "AreaSub"
 
 @export_flags_2d_physics var collision_mask
 @onready var area_component:AreaComponent = get_parent()
