@@ -1,0 +1,215 @@
+[gd_scene load_steps=27 format=3 uid="uid://d360yvbc1ehq1"]
+
+[ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_av8fi"]
+[ext_resource type="Texture2D" uid="uid://isam6dvn6jsw" path="res://assets/spawner.png" id="2_7iubi"]
+[ext_resource type="PackedScene" uid="uid://dnd4kisf8wjau" path="res://scenes/components/cp_sprite.tscn" id="3_at3wa"]
+[ext_resource type="PackedScene" uid="uid://b7m0l4xy8303h" path="res://scenes/components/cp_area.tscn" id="4_p3llm"]
+[ext_resource type="Script" uid="uid://cp7jolp00vhsj" path="res://scripts/components/area_components/acp_dragndrop.gd" id="5_7p1l3"]
+[ext_resource type="FontFile" uid="uid://b1yamwmxwedf2" path="res://assets/fs-pixel-sans-unicode-regular.regular.ttf" id="5_at3wa"]
+[ext_resource type="Script" uid="uid://bciur05p7y6v0" path="res://scripts/components/area_components/acp_tooltip.gd" id="6_p3llm"]
+[ext_resource type="PackedScene" uid="uid://ctvjgw7gos24a" path="res://scenes/components/cp_spawner.tscn" id="7_1jocq"]
+[ext_resource type="Script" uid="uid://d1r6d4js1v2l7" path="res://scripts/components/cp_unrotator.gd" id="7_p3llm"]
+[ext_resource type="Script" uid="uid://fb1gm2irhc06" path="res://scripts/conditions/CN_COMPONENT.gd" id="8_ndbrc"]
+[ext_resource type="Script" uid="uid://58vjd3u66x8p" path="res://scripts/components/area_components/acp_control_rotate.gd" id="9_7p1l3"]
+[ext_resource type="Script" uid="uid://d2pya8xqotdjs" path="res://scripts/conditions/CN_NOT.gd" id="9_ocw5j"]
+[ext_resource type="Script" uid="uid://ctwtre00simba" path="res://scripts/components/spawner_components/options/osc_random.gd" id="10_eemkd"]
+[ext_resource type="PackedScene" uid="uid://b5ox11s6uu2e7" path="res://scenes/actors/apple.tscn" id="11_21i0d"]
+[ext_resource type="Script" uid="uid://6idd405bl3x7" path="res://scripts/components/cp_resource.gd" id="12_0wcat"]
+[ext_resource type="Texture2D" uid="uid://cr7qyvwkw7w36" path="res://assets/red_delicious.png" id="13_u5f4g"]
+[ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="14_2wtwi"]
+[ext_resource type="Texture2D" uid="uid://dwc6mu4td8qme" path="res://assets/placement_indicator.png" id="15_gglc6"]
+[ext_resource type="Script" uid="uid://mjlj0npxctfg" path="res://scripts/components/cp_slotable.gd" id="20_vrtij"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7p1l3"]
+color = Color(0.670588, 0.266667, 0.152941, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 4
+
+[sub_resource type="FontVariation" id="FontVariation_vrtij"]
+base_font = ExtResource("5_at3wa")
+baseline_offset = -0.075
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jocq"]
+bg_color = Color(0.964706, 0.556863, 0.266667, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.670588, 0.266667, 0.152941, 1)
+
+[sub_resource type="Theme" id="Theme_ndbrc"]
+HSeparator/styles/separator = SubResource("StyleBoxLine_7p1l3")
+Label/colors/font_color = Color(0.54, 0.21429, 0.1242, 1)
+Label/font_sizes/font_size = 16
+Label/fonts/font = SubResource("FontVariation_vrtij")
+Panel/styles/panel = SubResource("StyleBoxFlat_1jocq")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6deb"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqmmt"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pm3ni"]
+size = Vector2(15, 15)
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource("1_av8fi")
+static_texture = ExtResource("2_7iubi")
+metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_7iubi")
+
+[node name="CP_Sprite" parent="." node_paths=PackedStringArray("resource_component") instance=ExtResource("3_at3wa")]
+texture_filter = 1
+resource_component = NodePath("../CP_Resource")
+
+[node name="CP_Unrotator" type="Node" parent="CP_Sprite"]
+script = ExtResource("7_p3llm")
+
+[node name="CP_Area" parent="." instance=ExtResource("4_p3llm")]
+collision_layer = 64
+
+[node name="ACP_Tooltip" type="Control" parent="CP_Area"]
+modulate = Color(1, 1, 1, 0)
+z_index = 4
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+theme = SubResource("Theme_ndbrc")
+script = ExtResource("6_p3llm")
+fade_in_delay = 0.3
+collision_mask = 1
+
+[node name="Panel" type="Panel" parent="CP_Area/ACP_Tooltip"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -8.0
+offset_right = 274.0
+offset_bottom = 149.0
+scale = Vector2(0.23, 0.23)
+
+[node name="MarginContainer" type="MarginContainer" parent="CP_Area/ACP_Tooltip/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CP_Area/ACP_Tooltip/Panel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 52
+text = "Apple Producer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 0.1)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Creates apples in front of it when there are none"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CP_Unrotator" type="Node" parent="CP_Area/ACP_Tooltip"]
+script = ExtResource("7_p3llm")
+
+[node name="ACP_DragNDrop" type="Node" parent="CP_Area"]
+script = ExtResource("5_7p1l3")
+toggle = true
+collision_mask = 1
+metadata/_custom_type_script = "uid://cp7jolp00vhsj"
+
+[node name="ACP_ControlRotate" type="Node" parent="CP_Area"]
+script = ExtResource("9_7p1l3")
+rotation_amount = 90.0
+collision_mask = 1
+metadata/_custom_type_script = "uid://58vjd3u66x8p"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Area"]
+shape = SubResource("RectangleShape2D_y6deb")
+
+[node name="CP_Spawner" parent="." node_paths=PackedStringArray("condition") instance=ExtResource("7_1jocq")]
+position = Vector2(16, 0)
+main_group = "Main"
+condition = NodePath("NOTCondition")
+spawn_limit = -1
+auto_spawn = true
+spawn_interval = 1.5
+
+[node name="NOTCondition" type="Node" parent="CP_Spawner" node_paths=PackedStringArray("condition")]
+script = ExtResource("9_ocw5j")
+condition = NodePath("COMPONENTCondition")
+metadata/_custom_type_script = "uid://d2pya8xqotdjs"
+
+[node name="COMPONENTCondition" type="Node" parent="CP_Spawner/NOTCondition" node_paths=PackedStringArray("actor")]
+script = ExtResource("8_ndbrc")
+actor = NodePath("../../..")
+component_id = "Area"
+occurence = 1
+bool_path = "has_overlapping_collisions()"
+metadata/_custom_type_script = "uid://fb1gm2irhc06"
+
+[node name="RandomOptionsSpawnerComponent" type="Node" parent="CP_Spawner"]
+script = ExtResource("10_eemkd")
+options = Array[PackedScene]([ExtResource("11_21i0d")])
+metadata/_custom_type_script = "uid://ctwtre00simba"
+
+[node name="CP_Area" parent="CP_Spawner" instance=ExtResource("4_p3llm")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Spawner/CP_Area"]
+shape = SubResource("RectangleShape2D_gqmmt")
+
+[node name="CP_Resource" type="Node" parent="."]
+script = ExtResource("12_0wcat")
+id = "AppleType"
+resource = ExtResource("13_u5f4g")
+metadata/_custom_type_script = "uid://6idd405bl3x7"
+
+[node name="CP_Holdable" type="Node" parent="." node_paths=PackedStringArray("placement_indicator", "placement_checker")]
+script = ExtResource("14_2wtwi")
+grid_locked = true
+grid_offset = Vector2(8, 8)
+placement_indicator = NodePath("PlacementIndicator")
+placement_checker = NodePath("PlacementChecker")
+
+[node name="PlacementIndicator" type="Sprite2D" parent="CP_Holdable"]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("15_gglc6")
+
+[node name="PlacementChecker" parent="CP_Holdable" instance=ExtResource("4_p3llm")]
+collision_layer = 64
+collision_mask = 60
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Holdable/PlacementChecker"]
+shape = SubResource("RectangleShape2D_pm3ni")
+
+[node name="SlotableComponent" type="Node" parent="."]
+script = ExtResource("20_vrtij")
+id = "AppleSpawner"
+metadata/_custom_type_script = "uid://mjlj0npxctfg"
+
+[connection signal="rotated" from="CP_Area/ACP_ControlRotate" to="CP_Area/ACP_Tooltip" method="reset"]

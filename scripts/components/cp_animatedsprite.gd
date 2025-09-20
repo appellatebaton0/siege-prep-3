@@ -10,6 +10,6 @@ func _init() -> void:
 func _ready():
 	Global.add_global_animation(global_animation)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if global_animation != null:
 		me.frame = global_animation.current_frame

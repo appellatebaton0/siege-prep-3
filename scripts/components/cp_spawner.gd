@@ -9,6 +9,13 @@ func _init() -> void:
 @onready var rotation_component:RotationSpawnerComponent
 @onready var velocity_component:VelocitySpawnerComponent
 
+## The place newly added objects should go
+@export var main:Node
+## Alternative option, set the group name to find main in the tree.
+@export var main_group:String
+## The condition for spawning something. Empty = always true
+@export var condition:Condition
+
 @export var spawn_limit:int = 0 ## How many actors this spawner can create at maximum (-1 = infinite)
 var spawned_so_far:int = 0
 @export var auto_spawn:bool = false ## Whether the spawner automatically starts spawning.
@@ -16,6 +23,10 @@ var spawned_so_far:int = 0
 @export var spawn_time:float = 0.0 ## The time before the first spawn
 
 func _ready() -> void:
+	
+	if main_group != null:
+		main = get_tree().get_first_node_in_group(main_group)
+	
 	for child in get_children():
 		if child is OptionsSpawnerComponent:
 			options_component = child
@@ -41,7 +52,7 @@ func spawn():
 		var rotation:float   = deg_to_rad(rotation_component.get_rotation()) if rotation_component != null else 0.0
 		var velocity:Vector2 = velocity_component.get_velocity() if velocity_component != null else Vector2.ZERO
 
-		Global.world.add_child(new)
+		main.add_child(new)
 		
 		# Apply position & rotation
 		new.global_position = global_position
@@ -52,9 +63,9 @@ func spawn():
 			get_actor_motion_component(new).me.velocity = velocity.rotated(rotation)
 
 func _process(delta: float) -> void:
-	if auto_spawn:
+	if auto_spawn and actor.is_active():
 		spawn_time = move_toward(spawn_time, 0, delta)
 		
-		if spawn_time <= 0 and (spawned_so_far < spawn_limit or spawn_limit < 0):
+		if condition.valid() and spawn_time <= 0 and (spawned_so_far < spawn_limit or spawn_limit < 0):
 			spawn()
 			spawn_time = spawn_interval

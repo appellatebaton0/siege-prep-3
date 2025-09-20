@@ -23,7 +23,7 @@ func hold(target:Actor) -> bool:
 		hold_offset = target.global_position - me.get_global_mouse_position()
 		return true # Respond that it was picked up
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if holding != null:
 		holding.global_position = me.global_position + hold_offset
 		if hold_offset.distance_to(Vector2.ZERO) > hold_max_distance:

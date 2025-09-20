@@ -1,17 +1,33 @@
-[gd_scene load_steps=22 format=4 uid="uid://chm3si0nicqxd"]
+[gd_scene load_steps=38 format=4 uid="uid://chm3si0nicqxd"]
 
 [ext_resource type="Texture2D" uid="uid://dds73m1ns0ua5" path="res://assets/tileset.png" id="1_85g3d"]
 [ext_resource type="PackedScene" uid="uid://c1o1g8l0yp175" path="res://scenes/actors/conveyor.tscn" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="3_pm3ni"]
-[ext_resource type="PackedScene" uid="uid://b5ox11s6uu2e7" path="res://scenes/actors/apple.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dnu1mqkh1ivf5" path="res://scenes/elements/em_label.tscn" id="4_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://5u0g41egsprk" path="res://scenes/actors/mouse.tscn" id="4_tefeu"]
+[ext_resource type="Script" uid="uid://cvu07fg8015y" path="res://scripts/dynamic_values/dv_consumerquota.gd" id="5_muem4"]
 [ext_resource type="PackedScene" uid="uid://b7m0l4xy8303h" path="res://scenes/components/cp_area.tscn" id="5_og1vs"]
 [ext_resource type="Script" uid="uid://clxnv4jp2t4w1" path="res://scripts/interface.gd" id="5_tefeu"]
 [ext_resource type="Theme" uid="uid://dsqsp4yy41d" path="res://assets/theme.tres" id="6_2wyq8"]
 [ext_resource type="Script" uid="uid://coxxm0jngdb8b" path="res://scripts/elements/em_button.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://yykaxcetwqrs" path="res://scripts/dynamic_values/dv_highest.gd" id="6_vxglm"]
 [ext_resource type="Script" uid="uid://dqvrgqoepmn4o" path="res://scripts/elements/bem_invslot.gd" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://71itai6j6ox1" path="res://scenes/elements/em_texturerect.tscn" id="8_jbj1t"]
 [ext_resource type="Script" uid="uid://bxjg885lu0c7y" path="res://scripts/elements/em_label.gd" id="9_85g3d"]
-[ext_resource type="Script" uid="uid://udn3rvcqtocv" path="res://scripts/elements/em_texturerect.gd" id="10_choun"]
+[ext_resource type="Script" uid="uid://cp7jolp00vhsj" path="res://scripts/components/area_components/acp_dragndrop.gd" id="9_yq6so"]
+[ext_resource type="Script" uid="uid://mohyxomhhof7" path="res://scripts/dynamic_values/dynamic_value.gd" id="10_jbj1t"]
+[ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="11_tel4y"]
+[ext_resource type="PackedScene" uid="uid://d360yvbc1ehq1" path="res://scenes/actors/spawner.tscn" id="12_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://qc1ish8ir76j" path="res://scenes/actors/glaze_chocolate.tscn" id="14_yc10j"]
+[ext_resource type="PackedScene" uid="uid://dnd4kisf8wjau" path="res://scenes/components/cp_sprite.tscn" id="15_dgi5k"]
+[ext_resource type="PackedScene" uid="uid://bcgexxana6rq2" path="res://scenes/actors/glaze_white_chocolate.tscn" id="15_jscy8"]
+[ext_resource type="Texture2D" uid="uid://bqgxi1bn18qbm" path="res://assets/output.png" id="16_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://d06k5mbeyoroa" path="res://scenes/actors/glaze_candy.tscn" id="16_pm3ni"]
+[ext_resource type="FontFile" uid="uid://b1yamwmxwedf2" path="res://assets/fs-pixel-sans-unicode-regular.regular.ttf" id="18_yc10j"]
+[ext_resource type="Script" uid="uid://bciur05p7y6v0" path="res://scripts/components/area_components/acp_tooltip.gd" id="19_jscy8"]
+[ext_resource type="Script" uid="uid://d1r6d4js1v2l7" path="res://scripts/components/cp_unrotator.gd" id="20_pm3ni"]
+[ext_resource type="Script" uid="uid://b1vvgea5ocu13" path="res://scripts/components/area_components/acp_consumer.gd" id="21_jscy8"]
+[ext_resource type="PackedScene" uid="uid://dul7gmk7a6gqf" path="res://scenes/actors/glaze_caramel.tscn" id="24_y6deb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("1_85g3d")
@@ -21,25 +37,41 @@ texture = ExtResource("1_85g3d")
 [sub_resource type="TileSet" id="TileSet_tefeu"]
 sources/0 = SubResource("TileSetAtlasSource_tbgi4")
 
-[sub_resource type="Gradient" id="Gradient_choun"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_og1vs"]
+bg_color = Color(0.513726, 0.223529, 0.109804, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ya4ey"]
-gradient = SubResource("Gradient_choun")
+[sub_resource type="Theme" id="Theme_2wyq8"]
+Panel/styles/panel = SubResource("StyleBoxFlat_og1vs")
 
-[sub_resource type="Gradient" id="Gradient_eb6dy"]
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_y6deb"]
+color = Color(0.372549, 0.321569, 0.101961, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 4
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_trceg"]
-gradient = SubResource("Gradient_eb6dy")
+[sub_resource type="FontVariation" id="FontVariation_og1vs"]
+base_font = ExtResource("18_yc10j")
+baseline_offset = -0.075
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8y0u"]
-size = Vector2(63, 63)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2wyq8"]
+bg_color = Color(0.505882, 0.482353, 0.101961, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.372549, 0.321569, 0.101961, 1)
 
-[sub_resource type="Gradient" id="Gradient_jkv2x"]
+[sub_resource type="Theme" id="Theme_vxglm"]
+HSeparator/styles/separator = SubResource("StyleBoxLine_y6deb")
+Label/colors/font_color = Color(1, 0.9505, 0.73, 1)
+Label/font_sizes/font_size = 16
+Label/fonts/font = SubResource("FontVariation_og1vs")
+Panel/styles/panel = SubResource("StyleBoxFlat_2wyq8")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_jbj1t"]
-gradient = SubResource("Gradient_jkv2x")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ld40"]
+size = Vector2(32, 32)
 
-[node name="Main" type="Node2D" groups=["Main"]]
+[node name="Main" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 0
@@ -48,7 +80,7 @@ follow_viewport_enabled = true
 [node name="TileMapLayer" type="TileMapLayer" parent="CanvasLayer"]
 z_index = -1
 texture_filter = 1
-tile_map_data = PackedByteArray("AAD///r/AAAAAAAAAAD///v/AAAAAAAAAAD///z/AAAAAAAAAAD///3/AAAAAAAAAAD///7/AAAAAAAAAAD/////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAAAAAAAAAD//wQAAAAAAAAAAAD//wUAAAAAAAAAAAAAAPr/AAAAAAAAAAAAAPv/AAAAAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAAAAP7/AAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAPr/AAAAAAAAAAABAPv/AAAAAAAAAAABAPz/AAAAAAAAAAABAP3/AAAAAAAAAAABAP7/AAAAAAAAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAACAPr/AAAAAAAAAAACAPv/AAAAAAAAAAACAPz/AAAAAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAADAPr/AAAAAAAAAAADAPv/AAAAAAAAAAADAPz/AAAAAAAAAAADAP3/AAAAAAAAAAADAP7/AAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAAEAPr/AAAAAAAAAAAEAPv/AAAAAAAAAAAEAPz/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAP7/AAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAPr/AAAAAAAAAAAFAPv/AAAAAAAAAAAFAPz/AAAAAAAAAAAFAP3/AAAAAAAAAAAFAP7/AAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAPr/AAAAAAAAAAAGAPv/AAAAAAAAAAAGAPz/AAAAAAAAAAAGAP3/AAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAPr/AAAAAAAAAAAHAPv/AAAAAAAAAAAHAPz/AAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAPr/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAPr/AAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAEAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAAAAAD2//r/AAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAD2//3/AAAAAAAAAAD2//7/AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD2/wUAAAAAAAAAAAD3//r/AAAAAAAAAAD3//v/AAAAAAAAAAD3//z/AAAAAAAAAAD3//3/AAAAAAAAAAD3//7/AAAAAAAAAAD3////AAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD3/wIAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wQAAAAAAAAAAAD3/wUAAAAAAAAAAAD4//r/AAAAAAAAAAD4//v/AAAAAAAAAAD4//z/AAAAAAAAAAD4//3/AAAAAAAAAAD4//7/AAAAAAAAAAD4////AAAAAAAAAAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD4/wIAAAAAAAAAAAD4/wMAAAAAAAAAAAD4/wQAAAAAAAAAAAD4/wUAAAAAAAAAAAD5//r/AAAAAAAAAAD5//v/AAAAAAAAAAD5//z/AAAAAAAAAAD5//3/AAAAAAAAAAD5//7/AAAAAAAAAAD5////AAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wQAAAAAAAAAAAD5/wUAAAAAAAAAAAD6//r/AAAAAAAAAAD6//v/AAAAAAAAAAD6//z/AAAAAAAAAAD6//3/AAAAAAAAAAD6//7/AAAAAAAAAAD6////AAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD6/wIAAAAAAAAAAAD6/wMAAAAAAAAAAAD6/wQAAAAAAAAAAAD6/wUAAAAAAAAAAAD7//r/AAAAAAAAAAD7//v/AAAAAAAAAAD7//z/AAAAAAAAAAD7//3/AAAAAAAAAAD7//7/AAAAAAAAAAD7////AAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wMAAAAAAAAAAAD7/wQAAAAAAAAAAAD7/wUAAAAAAAAAAAD8//r/AAAAAAAAAAD8//v/AAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD8/wQAAAAAAAAAAAD8/wUAAAAAAAAAAAD9//r/AAAAAAAAAAD9//v/AAAAAAAAAAD9//z/AAAAAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9////AAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAD9/wQAAAAAAAAAAAD9/wUAAAAAAAAAAAD+//r/AAAAAAAAAAD+//v/AAAAAAAAAAD+//z/AAAAAAAAAAD+//3/AAAAAAAAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD+/wUAAAAAAAAAAAD1//r/AAAAAAAAAAD1//v/AAAAAAAAAAD1//z/AAAAAAAAAAD1//3/AAAAAAAAAAD1//7/AAAAAAAAAAD1////AAAAAAAAAAD1/wAAAAAAAAAAAAD1/wEAAAAAAAAAAAD1/wIAAAAAAAAAAAD1/wMAAAAAAAAAAAD1/wQAAAAAAAAAAAD1/wUAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD///r/AAAAAAAAAAD///v/AAAAAAAAAAD///z/AAAAAAAAAAD///3/AAAAAAAAAAD///7/AAAAAAAAAAD/////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAAAAAAAAAD//wQAAAAAAAAAAAD//wUAAAAAAAAAAAAAAPr/AAAAAAAAAAAAAPv/AAAAAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAAAAP7/AAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAPr/AAAAAAAAAAABAPv/AAAAAAAAAAABAPz/AAAAAAAAAAABAP3/AAAAAAAAAAABAP7/AAAAAAAAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAACAPr/AAAAAAAAAAACAPv/AAAAAAAAAAACAPz/AAAAAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAADAPr/AAAAAAAAAAADAPv/AAAAAAAAAAADAPz/AAAAAAAAAAADAP3/AAAAAAAAAAADAP7/AAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAAEAPr/AAAAAAAAAAAEAPv/AAAAAAAAAAAEAPz/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAP7/AAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAPr/AAAAAAAAAAAFAPv/AAAAAAAAAAAFAPz/AAAAAAAAAAAFAP3/AAAAAAAAAAAFAP7/AAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAPr/AAAAAAAAAAAGAPv/AAAAAAAAAAAGAPz/AAAAAAAAAAAGAP3/AAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAD2//r/AAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAD2//3/AAAAAAAAAAD2//7/AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD2/wUAAAAAAAAAAAD3//r/AAAAAAAAAAD3//v/AAAAAAAAAAD3//z/AAAAAAAAAAD3//3/AAAAAAAAAAD3//7/AAAAAAAAAAD3////AAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD3/wIAAAAAAAAAAAD3/wMAAAAAAAAAAAD3/wQAAAAAAAAAAAD3/wUAAAAAAAAAAAD4//r/AAAAAAAAAAD4//v/AAAAAAAAAAD4//z/AAAAAAAAAAD4//3/AAAAAAAAAAD4//7/AAAAAAAAAAD4////AAAAAAAAAAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD4/wIAAAAAAAAAAAD4/wMAAAAAAAAAAAD4/wQAAAAAAAAAAAD4/wUAAAAAAAAAAAD5//r/AAAAAAAAAAD5//v/AAAAAAAAAAD5//z/AAAAAAAAAAD5//3/AAAAAAAAAAD5//7/AAAAAAAAAAD5////AAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wQAAAAAAAAAAAD5/wUAAAAAAAAAAAD6//r/AAAAAAAAAAD6//v/AAAAAAAAAAD6//z/AAAAAAAAAAD6//3/AAAAAAAAAAD6//7/AAAAAAAAAAD6////AAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD6/wIAAAAAAAAAAAD6/wMAAAAAAAAAAAD6/wQAAAAAAAAAAAD6/wUAAAAAAAAAAAD7//r/AAAAAAAAAAD7//v/AAAAAAAAAAD7//z/AAAAAAAAAAD7//3/AAAAAAAAAAD7//7/AAAAAAAAAAD7////AAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wMAAAAAAAAAAAD7/wQAAAAAAAAAAAD7/wUAAAAAAAAAAAD8//r/AAAAAAAAAAD8//v/AAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD8/wQAAAAAAAAAAAD8/wUAAAAAAAAAAAD9//r/AAAAAAAAAAD9//v/AAAAAAAAAAD9//z/AAAAAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9////AAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAD9/wQAAAAAAAAAAAD9/wUAAAAAAAAAAAD+//r/AAAAAAAAAAD+//v/AAAAAAAAAAD+//z/AAAAAAAAAAD+//3/AAAAAAAAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD+/wUAAAAAAAAAAAD1//r/AAAAAAAAAAD1//v/AAAAAAAAAAD1//z/AAAAAAAAAAD1//3/AAAAAAAAAAD1//7/AAAAAAAAAAD1////AAAAAAAAAAD1/wAAAAAAAAAAAAD1/wEAAAAAAAAAAAD1/wIAAAAAAAAAAAD1/wMAAAAAAAAAAAD1/wQAAAAAAAAAAAD1/wUAAAAAAAAAAAAFAP//AAAAAAAAAAAGAP7/AAAAAAAAAAAGAP//AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_tefeu")
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -65,16 +97,101 @@ theme = ExtResource("6_2wyq8")
 script = ExtResource("5_tefeu")
 metadata/_custom_type_script = "uid://clxnv4jp2t4w1"
 
-[node name="Panel" type="Panel" parent="UI/UserInterface"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/UserInterface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 981.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel"]
+[node name="Scoreboard" type="Panel" parent="UI/UserInterface/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/HBoxContainer/Scoreboard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/UserInterface/HBoxContainer/Scoreboard/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_2wyq8")
+
+[node name="Panel" type="Panel" parent="UI/UserInterface/HBoxContainer/Scoreboard/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EM_Label" parent="UI/UserInterface/HBoxContainer/Scoreboard/MarginContainer/HBoxContainer/Panel" node_paths=PackedStringArray("values") instance=ExtResource("4_jkv2x")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -13.5
+offset_right = 33.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 31
+text = "Score: 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+values = [NodePath("ConsumerQuotaDynamicValue")]
+text_format = "Score: {0}"
+
+[node name="ConsumerQuotaDynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Scoreboard/MarginContainer/HBoxContainer/Panel/EM_Label" node_paths=PackedStringArray("source")]
+script = ExtResource("5_muem4")
+source = NodePath("../../../../../../../../../CanvasLayer2/Output/CP_Area/ACP_Consumer")
+metadata/_custom_type_script = "uid://cvu07fg8015y"
+
+[node name="Panel2" type="Panel" parent="UI/UserInterface/HBoxContainer/Scoreboard/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EM_Label" parent="UI/UserInterface/HBoxContainer/Scoreboard/MarginContainer/HBoxContainer/Panel2" node_paths=PackedStringArray("values") instance=ExtResource("4_jkv2x")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -13.5
+offset_right = 33.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 31
+text = "Score: 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+values = [NodePath("DV_Highest")]
+text_format = "Highscore: {0}"
+
+[node name="DV_Highest" type="Node" parent="UI/UserInterface/HBoxContainer/Scoreboard/MarginContainer/HBoxContainer/Panel2/EM_Label" node_paths=PackedStringArray("highvalue", "source")]
+script = ExtResource("6_vxglm")
+highvalue = NodePath("../../../Panel/EM_Label/ConsumerQuotaDynamicValue")
+source = NodePath("../../../Panel/EM_Label/ConsumerQuotaDynamicValue")
+
+[node name="Inventory" type="Panel" parent="UI/UserInterface/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/HBoxContainer/Inventory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,28 +203,28 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Inventory" type="GridContainer" parent="UI/UserInterface/Panel/MarginContainer"]
+[node name="Inventory" type="GridContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer"]
 layout_mode = 2
 theme_override_constants/v_separation = 15
+columns = 2
 script = ExtResource("5_tefeu")
 
-[node name="EM_Button2" type="Button" parent="UI/UserInterface/Panel/MarginContainer/Inventory"]
-custom_minimum_size = Vector2(0, 125)
+[node name="EM_Button(CV)" type="Button" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 0
 script = ExtResource("6_tefeu")
 
-[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2" node_paths=PackedStringArray("main", "mouse_actor")]
+[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)" node_paths=PackedStringArray("main", "mouse_actor")]
 script = ExtResource("7_o6xl0")
 initial_holding = ExtResource("2_jyhfs")
-amount = 2
-max_amount = 3
-main = NodePath("../../../../../../../CanvasLayer2")
-mouse_actor = NodePath("../../../../../../../CanvasLayer2/Mouse")
+amount = 100
+max_amount = 100
+main = NodePath("../../../../../../../../CanvasLayer2")
+mouse_actor = NodePath("../../../../../../../../CanvasLayer2/Mouse")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -115,57 +232,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2/MarginContainer" node_paths=PackedStringArray("source")]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.92, 0.8096, 0.644, 1)
-theme_override_font_sizes/font_size = 41
+
+[node name="EM_TextureRect" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("value") instance=ExtResource("8_jbj1t")]
+layout_mode = 2
+value = NodePath("DynamicValue")
+
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/MarginContainer/VBoxContainer/EM_TextureRect" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "holding.static_texture"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="Label" type="Label" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("values")]
+layout_mode = 2
+size_flags_vertical = 8
 text = "0/0"
 horizontal_alignment = 2
 vertical_alignment = 2
 script = ExtResource("9_85g3d")
-source = NodePath("../../BEM_InvSlot")
-values = Array[String](["amount", "max_amount"])
+values = [NodePath("DynamicValue"), NodePath("DynamicValue2")]
 text_format = "{0}/{1}"
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2/MarginContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
 
-[node name="TextureRect" type="TextureRect" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2/MarginContainer/MarginContainer" node_paths=PackedStringArray("source")]
-texture_filter = 1
-layout_mode = 2
-texture = SubResource("GradientTexture2D_ya4ey")
-expand_mode = 4
-stretch_mode = 4
-script = ExtResource("10_choun")
-source = NodePath("../../../BEM_InvSlot")
-value = "holding.static_texture"
+[node name="DynamicValue2" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "max_amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
 
-[node name="EM_Button3" type="Button" parent="UI/UserInterface/Panel/MarginContainer/Inventory"]
-custom_minimum_size = Vector2(0, 125)
+[node name="EM_Button(GCa)" type="Button" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 0
 script = ExtResource("6_tefeu")
 
-[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3" node_paths=PackedStringArray("main", "mouse_actor")]
+[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)" node_paths=PackedStringArray("main", "mouse_actor")]
 script = ExtResource("7_o6xl0")
-initial_holding = ExtResource("2_jyhfs")
-amount = 2
-max_amount = 3
-main = NodePath("../../../../../../../CanvasLayer2")
-mouse_actor = NodePath("../../../../../../../CanvasLayer2/Mouse")
+initial_holding = ExtResource("24_y6deb")
+amount = 100
+max_amount = 100
+main = NodePath("../../../../../../../../CanvasLayer2")
+mouse_actor = NodePath("../../../../../../../../CanvasLayer2/Mouse")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -173,57 +294,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3/MarginContainer" node_paths=PackedStringArray("source")]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.92, 0.8096, 0.644, 1)
-theme_override_font_sizes/font_size = 41
+
+[node name="EM_TextureRect" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("value") instance=ExtResource("8_jbj1t")]
+layout_mode = 2
+value = NodePath("DynamicValue")
+
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/MarginContainer/VBoxContainer/EM_TextureRect" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "holding.static_texture"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="Label" type="Label" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("values")]
+layout_mode = 2
+size_flags_vertical = 8
 text = "0/0"
 horizontal_alignment = 2
 vertical_alignment = 2
 script = ExtResource("9_85g3d")
-source = NodePath("../../BEM_InvSlot")
-values = Array[String](["amount", "max_amount"])
+values = [NodePath("DynamicValue"), NodePath("DynamicValue2")]
 text_format = "{0}/{1}"
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3/MarginContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
 
-[node name="TextureRect" type="TextureRect" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3/MarginContainer/MarginContainer" node_paths=PackedStringArray("source")]
-texture_filter = 1
-layout_mode = 2
-texture = SubResource("GradientTexture2D_ya4ey")
-expand_mode = 4
-stretch_mode = 4
-script = ExtResource("10_choun")
-source = NodePath("../../../BEM_InvSlot")
-value = "holding.static_texture"
+[node name="DynamicValue2" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "max_amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
 
-[node name="EM_Button4" type="Button" parent="UI/UserInterface/Panel/MarginContainer/Inventory"]
-custom_minimum_size = Vector2(0, 125)
+[node name="EM_Button(GCh)" type="Button" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 0
 script = ExtResource("6_tefeu")
 
-[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4" node_paths=PackedStringArray("main", "mouse_actor")]
+[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)" node_paths=PackedStringArray("main", "mouse_actor")]
 script = ExtResource("7_o6xl0")
-initial_holding = ExtResource("2_jyhfs")
-amount = 2
-max_amount = 3
-main = NodePath("../../../../../../../CanvasLayer2")
-mouse_actor = NodePath("../../../../../../../CanvasLayer2/Mouse")
+initial_holding = ExtResource("14_yc10j")
+amount = 100
+max_amount = 100
+main = NodePath("../../../../../../../../CanvasLayer2")
+mouse_actor = NodePath("../../../../../../../../CanvasLayer2/Mouse")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -231,57 +356,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4/MarginContainer" node_paths=PackedStringArray("source")]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.92, 0.8096, 0.644, 1)
-theme_override_font_sizes/font_size = 41
+
+[node name="EM_TextureRect" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("value") instance=ExtResource("8_jbj1t")]
+layout_mode = 2
+value = NodePath("DynamicValue")
+
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)/MarginContainer/VBoxContainer/EM_TextureRect" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "holding.static_texture"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="Label" type="Label" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("values")]
+layout_mode = 2
+size_flags_vertical = 8
 text = "0/0"
 horizontal_alignment = 2
 vertical_alignment = 2
 script = ExtResource("9_85g3d")
-source = NodePath("../../BEM_InvSlot")
-values = Array[String](["amount", "max_amount"])
+values = [NodePath("DynamicValue"), NodePath("DynamicValue2")]
 text_format = "{0}/{1}"
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4/MarginContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
 
-[node name="TextureRect" type="TextureRect" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4/MarginContainer/MarginContainer" node_paths=PackedStringArray("source")]
-texture_filter = 1
-layout_mode = 2
-texture = SubResource("GradientTexture2D_ya4ey")
-expand_mode = 4
-stretch_mode = 4
-script = ExtResource("10_choun")
-source = NodePath("../../../BEM_InvSlot")
-value = "holding.static_texture"
+[node name="DynamicValue2" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "max_amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
 
-[node name="EM_Button5" type="Button" parent="UI/UserInterface/Panel/MarginContainer/Inventory"]
-custom_minimum_size = Vector2(0, 125)
+[node name="EM_Button(GWCh)" type="Button" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 0
 script = ExtResource("6_tefeu")
 
-[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5" node_paths=PackedStringArray("main", "mouse_actor")]
+[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)" node_paths=PackedStringArray("main", "mouse_actor")]
 script = ExtResource("7_o6xl0")
-initial_holding = ExtResource("2_jyhfs")
-amount = 2
-max_amount = 3
-main = NodePath("../../../../../../../CanvasLayer2")
-mouse_actor = NodePath("../../../../../../../CanvasLayer2/Mouse")
+initial_holding = ExtResource("15_jscy8")
+amount = 100
+max_amount = 100
+main = NodePath("../../../../../../../../CanvasLayer2")
+mouse_actor = NodePath("../../../../../../../../CanvasLayer2/Mouse")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -289,81 +418,279 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5/MarginContainer" node_paths=PackedStringArray("source")]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.92, 0.8096, 0.644, 1)
-theme_override_font_sizes/font_size = 41
+
+[node name="EM_TextureRect" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("value") instance=ExtResource("8_jbj1t")]
+layout_mode = 2
+value = NodePath("DynamicValue")
+
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)/MarginContainer/VBoxContainer/EM_TextureRect" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "holding.static_texture"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="Label" type="Label" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("values")]
+layout_mode = 2
+size_flags_vertical = 8
 text = "0/0"
 horizontal_alignment = 2
 vertical_alignment = 2
 script = ExtResource("9_85g3d")
-source = NodePath("../../BEM_InvSlot")
-values = Array[String](["amount", "max_amount"])
+values = [NodePath("DynamicValue"), NodePath("DynamicValue2")]
 text_format = "{0}/{1}"
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5/MarginContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
 
-[node name="TextureRect" type="TextureRect" parent="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5/MarginContainer/MarginContainer" node_paths=PackedStringArray("source")]
-texture_filter = 1
-layout_mode = 2
-texture = SubResource("GradientTexture2D_ya4ey")
-expand_mode = 4
-stretch_mode = 4
-script = ExtResource("10_choun")
-source = NodePath("../../../BEM_InvSlot")
-value = "holding.static_texture"
+[node name="DynamicValue2" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "max_amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="EM_Button(GCa)2" type="Button" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+script = ExtResource("6_tefeu")
+
+[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2" node_paths=PackedStringArray("main", "mouse_actor")]
+script = ExtResource("7_o6xl0")
+initial_holding = ExtResource("16_pm3ni")
+amount = 100
+max_amount = 100
+main = NodePath("../../../../../../../../CanvasLayer2")
+mouse_actor = NodePath("../../../../../../../../CanvasLayer2/Mouse")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2/MarginContainer"]
+layout_mode = 2
+
+[node name="EM_TextureRect" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2/MarginContainer/VBoxContainer" node_paths=PackedStringArray("value") instance=ExtResource("8_jbj1t")]
+layout_mode = 2
+value = NodePath("DynamicValue")
+
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2/MarginContainer/VBoxContainer/EM_TextureRect" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "holding.static_texture"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="Label" type="Label" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2/MarginContainer/VBoxContainer" node_paths=PackedStringArray("values")]
+layout_mode = 2
+size_flags_vertical = 8
+text = "0/0"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("9_85g3d")
+values = [NodePath("DynamicValue"), NodePath("DynamicValue2")]
+text_format = "{0}/{1}"
+
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="DynamicValue2" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "max_amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="EM_Button(Ap)" type="Button" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+script = ExtResource("6_tefeu")
+
+[node name="BEM_InvSlot" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)" node_paths=PackedStringArray("main", "mouse_actor")]
+script = ExtResource("7_o6xl0")
+initial_holding = ExtResource("12_eb6dy")
+amount = 100
+max_amount = 100
+main = NodePath("../../../../../../../../CanvasLayer2")
+mouse_actor = NodePath("../../../../../../../../CanvasLayer2/Mouse")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)/MarginContainer"]
+layout_mode = 2
+
+[node name="EM_TextureRect" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("value") instance=ExtResource("8_jbj1t")]
+layout_mode = 2
+value = NodePath("DynamicValue")
+
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)/MarginContainer/VBoxContainer/EM_TextureRect" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "holding.static_texture"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="Label" type="Label" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)/MarginContainer/VBoxContainer" node_paths=PackedStringArray("values")]
+layout_mode = 2
+size_flags_vertical = 8
+text = "0/0"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("9_85g3d")
+values = [NodePath("DynamicValue"), NodePath("DynamicValue2")]
+text_format = "{0}/{1}"
+
+[node name="DynamicValue" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="DynamicValue2" type="Node" parent="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)/MarginContainer/VBoxContainer/Label" node_paths=PackedStringArray("source")]
+script = ExtResource("10_jbj1t")
+source = NodePath("../../../../BEM_InvSlot")
+value_path = "max_amount"
+metadata/_custom_type_script = "uid://mohyxomhhof7"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." groups=["Main"]]
 follow_viewport_enabled = true
 
 [node name="Camera" type="Camera2D" parent="CanvasLayer2"]
 position = Vector2(-7, 0)
 zoom = Vector2(3.4, 3.4)
 
-[node name="Apple" parent="CanvasLayer2" instance=ExtResource("3_tbgi4")]
-position = Vector2(-3, 1)
-
-[node name="Apple2" parent="CanvasLayer2" instance=ExtResource("3_tbgi4")]
-position = Vector2(10, 0)
-
 [node name="Mouse" parent="CanvasLayer2" instance=ExtResource("4_tefeu")]
 position = Vector2(-118, 0)
 
-[node name="Conveyor" parent="CanvasLayer2" instance=ExtResource("2_jyhfs")]
-position = Vector2(-9, -4)
-
-[node name="Actor" type="Node2D" parent="CanvasLayer2"]
-position = Vector2(73, -29)
+[node name="Output" type="Node2D" parent="CanvasLayer2"]
+position = Vector2(-40, -6)
 script = ExtResource("3_pm3ni")
-static_texture = SubResource("GradientTexture2D_trceg")
 metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
 
-[node name="CP_Area" parent="CanvasLayer2/Actor" instance=ExtResource("5_og1vs")]
+[node name="CP_Sprite" parent="CanvasLayer2/Output" instance=ExtResource("15_dgi5k")]
+texture_filter = 1
+texture = ExtResource("16_dp3eg")
+
+[node name="CP_Area" parent="CanvasLayer2/Output" instance=ExtResource("5_og1vs")]
 collision_layer = 32
+collision_mask = 95
+
+[node name="ACP_Tooltip" type="Control" parent="CanvasLayer2/Output/CP_Area"]
+z_index = 4
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+theme = SubResource("Theme_vxglm")
+script = ExtResource("19_jscy8")
+fade_in_delay = 0.3
+collision_mask = 1
+
+[node name="Panel" type="Panel" parent="CanvasLayer2/Output/CP_Area/ACP_Tooltip"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -8.0
+offset_right = 274.0
+offset_bottom = 149.0
+scale = Vector2(0.23, 0.23)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer2/Output/CP_Area/ACP_Tooltip/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer2/Output/CP_Area/ACP_Tooltip/Panel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer2/Output/CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 52
+text = "Packager"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer2/Output/CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="CanvasLayer2/Output/CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 0.1)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Ships out produced apples to customers."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CP_Unrotator" type="Node" parent="CanvasLayer2/Output/CP_Area/ACP_Tooltip"]
+script = ExtResource("20_pm3ni")
+
+[node name="UnrotatorComponent" type="Node" parent="CanvasLayer2/Output/CP_Area/ACP_Tooltip"]
+script = ExtResource("20_pm3ni")
+metadata/_custom_type_script = "uid://d1r6d4js1v2l7"
+
+[node name="ACP_Consumer" type="Node" parent="CanvasLayer2/Output/CP_Area"]
+script = ExtResource("21_jscy8")
+timeout_time = 10.0
+resource_id = "Apple"
+compare_values = Array[String](["type_sprite", "glaze_sprite", "topping_sprite"])
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer2/Actor/CP_Area"]
-position = Vector2(-0.5, -0.5)
-shape = SubResource("RectangleShape2D_a8y0u")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer2/Output/CP_Area"]
+shape = SubResource("RectangleShape2D_0ld40")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2/Actor"]
-texture = SubResource("GradientTexture2D_jbj1t")
+[node name="DragNDropAreaSubComponent" type="Node" parent="CanvasLayer2/Output/CP_Area"]
+script = ExtResource("9_yq6so")
+toggle = true
+collision_mask = 1
+metadata/_custom_type_script = "uid://cp7jolp00vhsj"
 
-[connection signal="amount_changed" from="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2/BEM_InvSlot" to="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2/MarginContainer/Label" method="_update_label"]
-[connection signal="holding_changed" from="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2/BEM_InvSlot" to="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button2/MarginContainer/MarginContainer/TextureRect" method="_update_texture"]
-[connection signal="amount_changed" from="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3/BEM_InvSlot" to="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3/MarginContainer/Label" method="_update_label"]
-[connection signal="holding_changed" from="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3/BEM_InvSlot" to="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button3/MarginContainer/MarginContainer/TextureRect" method="_update_texture"]
-[connection signal="amount_changed" from="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4/BEM_InvSlot" to="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4/MarginContainer/Label" method="_update_label"]
-[connection signal="holding_changed" from="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4/BEM_InvSlot" to="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button4/MarginContainer/MarginContainer/TextureRect" method="_update_texture"]
-[connection signal="amount_changed" from="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5/BEM_InvSlot" to="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5/MarginContainer/Label" method="_update_label"]
-[connection signal="holding_changed" from="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5/BEM_InvSlot" to="UI/UserInterface/Panel/MarginContainer/Inventory/EM_Button5/MarginContainer/MarginContainer/TextureRect" method="_update_texture"]
+[node name="HoldableComponent" type="Node" parent="CanvasLayer2/Output"]
+script = ExtResource("11_tel4y")
+grid_locked = true
+metadata/_custom_type_script = "uid://d28oq4iu2elp8"
+
+[connection signal="amount_changed" from="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/BEM_InvSlot" to="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/MarginContainer/VBoxContainer/Label" method="_update_label"]
+[connection signal="amount_changed" from="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/BEM_InvSlot" to="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/MarginContainer/VBoxContainer/Label" method="_update_label"]
+[connection signal="amount_changed" from="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)/BEM_InvSlot" to="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCh)/MarginContainer/VBoxContainer/Label" method="_update_label"]
+[connection signal="amount_changed" from="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)/BEM_InvSlot" to="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GWCh)/MarginContainer/VBoxContainer/Label" method="_update_label"]
+[connection signal="amount_changed" from="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2/BEM_InvSlot" to="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)2/MarginContainer/VBoxContainer/Label" method="_update_label"]
+[connection signal="amount_changed" from="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)/BEM_InvSlot" to="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(Ap)/MarginContainer/VBoxContainer/Label" method="_update_label"]

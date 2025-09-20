@@ -1,5 +1,7 @@
 extends OptionsSpawnerComponent
 class_name RandomOptionsSpawnerComponent
+func _init():
+	component_id = "RandomOptionsSpawner"
 
 ## Actor spawn options.
 @export var options:Array[PackedScene]

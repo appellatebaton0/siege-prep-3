@@ -26,8 +26,12 @@ Additionally, I'll probably add a LOT to the composition framework I've been bui
 - EM_Label -> A dynamic label that can read values from elements and display them
 - EM_TextureRect -> A dynamic TextureRect that can display textures from elements and their values (like referenced actors)
 - Conditions -> A resource system to dynamically make conditions
-    - OR, AND, NOT -> Pretty self explanatory conditions. Allow subconditions.
-    - ACTOR -> Lets you see if an actor has a component, and grab *any value from a variable in that component*. 
+	- OR, AND, NOT -> Pretty self explanatory conditions. Allow subconditions.
+	- ACTOR -> Lets you see if an actor has a component, and grab *any value from a variable in that component*. 
+- ACP_Consumer -> Deletes actors and stores/tracks resources from them (for things like production rates)
+- CP_ResourceModifier -> Modifies the value of a resource in a CP_Resource
+- CP_Unrotator -> Makes a node's rotation stay constant and ignore the actor's.
+- Started on DynamicValues, effectively a system for making glue between components, elements, etc dynamically. Sorta like coding with nodes but it's all data manipulation.
 
 ### Game specific
 -  RS_Apple -> A game-specific resource to hold an apple's type, toppings, and glaze.

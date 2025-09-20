@@ -1,0 +1,142 @@
+[gd_scene load_steps=17 format=3 uid="uid://rji86xo5p6rq"]
+
+[ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_mucm3"]
+[ext_resource type="PackedScene" uid="uid://dnd4kisf8wjau" path="res://scenes/components/cp_sprite.tscn" id="2_cq2ho"]
+[ext_resource type="Texture2D" uid="uid://bqgxi1bn18qbm" path="res://assets/output.png" id="3_cbxp4"]
+[ext_resource type="PackedScene" uid="uid://b7m0l4xy8303h" path="res://scenes/components/cp_area.tscn" id="4_ksmga"]
+[ext_resource type="FontFile" uid="uid://b1yamwmxwedf2" path="res://assets/fs-pixel-sans-unicode-regular.regular.ttf" id="5_ihrwa"]
+[ext_resource type="Script" uid="uid://bciur05p7y6v0" path="res://scripts/components/area_components/acp_tooltip.gd" id="6_nd2hh"]
+[ext_resource type="Script" uid="uid://d1r6d4js1v2l7" path="res://scripts/components/cp_unrotator.gd" id="7_xfhkm"]
+[ext_resource type="Script" uid="uid://b1vvgea5ocu13" path="res://scripts/components/area_components/acp_consumer.gd" id="8_0o20x"]
+[ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="9_1vhyg"]
+[ext_resource type="Script" uid="uid://cp7jolp00vhsj" path="res://scripts/components/area_components/acp_dragndrop.gd" id="9_cbxp4"]
+[ext_resource type="Script" uid="uid://mjlj0npxctfg" path="res://scripts/components/cp_slotable.gd" id="11_ksmga"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_y6deb"]
+color = Color(0.372549, 0.321569, 0.101961, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 4
+
+[sub_resource type="FontVariation" id="FontVariation_og1vs"]
+base_font = ExtResource("5_ihrwa")
+baseline_offset = -0.075
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2wyq8"]
+bg_color = Color(0.505882, 0.482353, 0.101961, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.372549, 0.321569, 0.101961, 1)
+
+[sub_resource type="Theme" id="Theme_vxglm"]
+HSeparator/styles/separator = SubResource("StyleBoxLine_y6deb")
+Label/colors/font_color = Color(1, 0.9505, 0.73, 1)
+Label/font_sizes/font_size = 16
+Label/fonts/font = SubResource("FontVariation_og1vs")
+Panel/styles/panel = SubResource("StyleBoxFlat_2wyq8")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ld40"]
+size = Vector2(32, 32)
+
+[node name="Output" type="Node2D"]
+script = ExtResource("1_mucm3")
+metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
+
+[node name="CP_Sprite" parent="." instance=ExtResource("2_cq2ho")]
+texture_filter = 1
+texture = ExtResource("3_cbxp4")
+
+[node name="CP_Area" parent="." instance=ExtResource("4_ksmga")]
+collision_layer = 32
+collision_mask = 95
+
+[node name="ACP_Tooltip" type="Control" parent="CP_Area"]
+z_index = 4
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+theme = SubResource("Theme_vxglm")
+script = ExtResource("6_nd2hh")
+fade_in_delay = 0.3
+collision_mask = 1
+
+[node name="Panel" type="Panel" parent="CP_Area/ACP_Tooltip"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -8.0
+offset_right = 274.0
+offset_bottom = 149.0
+scale = Vector2(0.23, 0.23)
+
+[node name="MarginContainer" type="MarginContainer" parent="CP_Area/ACP_Tooltip/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CP_Area/ACP_Tooltip/Panel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 52
+text = "Packager"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="CP_Area/ACP_Tooltip/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 0.1)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Ships out produced apples to customers."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CP_Unrotator" type="Node" parent="CP_Area/ACP_Tooltip"]
+script = ExtResource("7_xfhkm")
+
+[node name="UnrotatorComponent" type="Node" parent="CP_Area/ACP_Tooltip"]
+script = ExtResource("7_xfhkm")
+metadata/_custom_type_script = "uid://d1r6d4js1v2l7"
+
+[node name="ACP_Consumer" type="Node" parent="CP_Area"]
+script = ExtResource("8_0o20x")
+timeout_time = 10.0
+resource_id = "Apple"
+compare_values = Array[String](["type_sprite", "glaze_sprite", "topping_sprite"])
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Area"]
+shape = SubResource("RectangleShape2D_0ld40")
+
+[node name="DragNDropAreaSubComponent" type="Node" parent="CP_Area"]
+script = ExtResource("9_cbxp4")
+toggle = true
+collision_mask = 1
+metadata/_custom_type_script = "uid://cp7jolp00vhsj"
+
+[node name="HoldableComponent" type="Node" parent="."]
+script = ExtResource("9_1vhyg")
+grid_locked = true
+metadata/_custom_type_script = "uid://d28oq4iu2elp8"
+
+[node name="SlotableComponent" type="Node" parent="."]
+script = ExtResource("11_ksmga")
+id = "Output"
+metadata/_custom_type_script = "uid://mjlj0npxctfg"

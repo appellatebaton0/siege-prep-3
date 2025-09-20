@@ -12,8 +12,8 @@ func _init() -> void:
 @export var grid_offset:Vector2 = Vector2(0,0)
 
 @export var placement_visibility_limits = {
-	"x": Vector2(0,0),
-	"y": Vector2(0,0)
+	"x": Vector2(-256,112),
+	"y": Vector2(-76,128)
 }
 
 ## A sprite2D to show where the actor will be placed
@@ -41,8 +41,9 @@ func hold_by(holder:HolderComponent) -> bool:
 	
 	# If it was placed and it shouldn't have been
 	# Pick it right back up again
-	if not held and placement_checker.has_overlapping_collisions():
-		held = holder.hold(actor)
+	if placement_checker != null:
+		if not held and placement_checker.has_overlapping_collisions():
+			held = holder.hold(actor)
 	
 	
 	# Handle making the actor inactive while held
@@ -54,7 +55,7 @@ func hold_by(holder:HolderComponent) -> bool:
 	
 	return held
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not held and grid_locked: # If the placement failed their position should be locked to a grid
 		# Round the actor's position to the grid
 		actor.global_position = round(((actor.global_position - grid_offset) / grid_size)) * grid_size + grid_offset

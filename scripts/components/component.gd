@@ -8,20 +8,24 @@ func _init():
 	## OR 
 	## There's a Component without a initialize
 	## function for its component id.
+	print(self, " failed.")
 	assert(false)
 
 ## The actor the component belongs to
 @onready var actor:Actor = find_actor()
-func find_actor() -> Actor:
-	var parent = get_parent()
-	var grand = parent.get_parent()
+func find_actor(depth:int = 5, with:Node = self) -> Actor:
 	
-	if parent is Actor:
-		return parent
-	elif grand is Actor:
-		return grand
+	if depth <= 0:
+		return null
 	
-	return null
+	var answer:Actor = null
+	
+	if with is Actor:
+		answer = with
+	else:
+		answer = find_actor(depth - 1, with.get_parent())
+	
+	return answer
 
 # Get components
 func get_components(depth:int = 4) -> Array[Component]:

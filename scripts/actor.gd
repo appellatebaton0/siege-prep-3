@@ -29,11 +29,20 @@ func get_components(depth:int = 4) -> Array[Component]:
 	if depth <= 0:
 		return []
 	
-	var components:Array[Component]
+	var return_components:Array[Component]
 		
 	for child in get_children():
 		if child is Component:
-			components.append(child)
-			components.append_array(child.get_components(depth - 1))
+			return_components.append(child)
+			return_components.append_array(child.get_components(depth - 1))
 	
-	return components
+	return return_components
+
+func _init() -> void:
+	
+	# If a static_texture isn't specified, try
+	# to find a Sprite2D to grab one from.
+	if static_texture == null:
+		for child in get_children():
+			if child is Sprite2D:
+				static_texture = child.texture

@@ -11,9 +11,16 @@ signal value_changed(value:String, to:Variant)
 @export var resource:Resource
 
 func change_value(value:String, to:Variant):
-	resource.set(value, to)
+	if value == "":
+		resource = to
+	else:
+		resource = resource.duplicate()
+		resource.set(value, to)
 	
 	value_changed.emit(value, to)
 
-func get_value(value:String) -> Variant:
+func get_value(value:String = "") -> Variant:
+	if value == "":
+		return resource
+	
 	return resource.get(value)

@@ -9,7 +9,7 @@ func _init() -> void:
 @export var fade_in_delay:float = 0.4
 var fade_in_timer:float = 0.0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	me.visible = me.modulate.a > 0.0
 
 func reset():
@@ -18,7 +18,6 @@ func reset():
 func while_any_collisions(delta:float):
 	if actor.is_active():
 		me.global_position = me.get_global_mouse_position()
-		me.rotation = -actor.rotation
 		
 		fade_in_timer = move_toward(fade_in_timer, 0, delta)
 		if fade_in_timer <= 0:

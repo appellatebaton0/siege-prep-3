@@ -1,0 +1,167 @@
+[gd_scene load_steps=21 format=3 uid="uid://d06k5mbeyoroa"]
+
+[ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_8j6yx"]
+[ext_resource type="Texture2D" uid="uid://btv6nbp2xol7p" path="res://assets/glaze_candy.png" id="2_7g2cq"]
+[ext_resource type="PackedScene" uid="uid://b7m0l4xy8303h" path="res://scenes/components/cp_area.tscn" id="3_la85f"]
+[ext_resource type="FontFile" uid="uid://b1yamwmxwedf2" path="res://assets/fs-pixel-sans-unicode-regular.regular.ttf" id="4_dy8q8"]
+[ext_resource type="Script" uid="uid://bciur05p7y6v0" path="res://scripts/components/area_components/acp_tooltip.gd" id="5_bb4ft"]
+[ext_resource type="Script" uid="uid://cp7jolp00vhsj" path="res://scripts/components/area_components/acp_dragndrop.gd" id="6_kcjfy"]
+[ext_resource type="Script" uid="uid://d1r6d4js1v2l7" path="res://scripts/components/cp_unrotator.gd" id="6_la85f"]
+[ext_resource type="Script" uid="uid://c2yxrg8yr1e5x" path="res://scripts/components/area_components/acp_conveyor.gd" id="7_xkg41"]
+[ext_resource type="Script" uid="uid://58vjd3u66x8p" path="res://scripts/components/area_components/acp_control_rotate.gd" id="8_7jr7l"]
+[ext_resource type="Script" uid="uid://dart8v4crafvo" path="res://scripts/components/area_components/acp_resourcemodifier.gd" id="9_ldmtv"]
+[ext_resource type="Texture2D" uid="uid://c4rqtvmkihflo" path="res://assets/candy.png" id="10_8j6yx"]
+[ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="11_clal2"]
+[ext_resource type="Texture2D" uid="uid://dwc6mu4td8qme" path="res://assets/placement_indicator.png" id="12_7g2cq"]
+[ext_resource type="Script" uid="uid://mjlj0npxctfg" path="res://scripts/components/cp_slotable.gd" id="12_o1tpx"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_yq6so"]
+color = Color(0.584314, 0.443137, 0.160784, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 4
+
+[sub_resource type="FontVariation" id="FontVariation_fv21b"]
+base_font = ExtResource("4_dy8q8")
+baseline_offset = -0.04
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tel4y"]
+bg_color = Color(0.847059, 0.74902, 0.388235, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.584314, 0.443137, 0.160784, 1)
+
+[sub_resource type="Theme" id="Theme_qkpxi"]
+HSeparator/styles/separator = SubResource("StyleBoxLine_yq6so")
+Label/colors/font_color = Color(0.37, 0.2812, 0.1036, 1)
+Label/fonts/font = SubResource("FontVariation_fv21b")
+Panel/styles/panel = SubResource("StyleBoxFlat_tel4y")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5q0nq"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_la85f"]
+size = Vector2(15, 15)
+
+[node name="GlazeCandy" type="Node2D"]
+script = ExtResource("1_8j6yx")
+static_texture = ExtResource("2_7g2cq")
+metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_7g2cq")
+
+[node name="CP_Area" parent="." instance=ExtResource("3_la85f")]
+collision_layer = 8
+collision_mask = 31
+
+[node name="ACP_Tooltip" type="Control" parent="CP_Area"]
+z_index = 2
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_qkpxi")
+script = ExtResource("5_bb4ft")
+fade_in_delay = 0.3
+collision_mask = 1
+
+[node name="Panel" type="Panel" parent="CP_Area/ACP_Tooltip"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -8.0
+offset_right = 274.0
+offset_bottom = 149.0
+scale = Vector2(0.23, 0.23)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CP_Area/ACP_Tooltip/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="CP_Area/ACP_Tooltip/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 52
+text = "Candy Glaze"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CP_Area/ACP_Tooltip/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="CP_Area/ACP_Tooltip/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0.05, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Coats apples in an orange candy glaze."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CP_Unrotator" type="Node" parent="CP_Area/ACP_Tooltip"]
+script = ExtResource("6_la85f")
+
+[node name="ACP_DragNDrop" type="Node" parent="CP_Area"]
+script = ExtResource("6_kcjfy")
+toggle = true
+collision_mask = 1
+metadata/_custom_type_script = "uid://cp7jolp00vhsj"
+
+[node name="ACP_Conveyor" type="Node" parent="CP_Area"]
+script = ExtResource("7_xkg41")
+convey_amount = Vector2(15, 0)
+collision_mask = 2
+metadata/_custom_type_script = "uid://c2yxrg8yr1e5x"
+
+[node name="ACP_ControlRotate" type="Node" parent="CP_Area"]
+script = ExtResource("8_7jr7l")
+rotation_amount = 90.0
+collision_mask = 1
+metadata/_custom_type_script = "uid://58vjd3u66x8p"
+
+[node name="ACP_ResourceModifier" type="Node" parent="CP_Area"]
+script = ExtResource("9_ldmtv")
+resource_ids = Array[String](["Apple"])
+modifiers = Dictionary[String, Variant]({
+"glaze_sprite": ExtResource("10_8j6yx")
+})
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Area"]
+shape = SubResource("RectangleShape2D_5q0nq")
+
+[node name="CP_Holdable" type="Node" parent="." node_paths=PackedStringArray("placement_indicator", "placement_checker")]
+script = ExtResource("11_clal2")
+grid_locked = true
+grid_offset = Vector2(8, 8)
+placement_indicator = NodePath("PlacementIndicator")
+placement_checker = NodePath("CP_Area")
+metadata/_custom_type_script = "uid://d28oq4iu2elp8"
+
+[node name="PlacementIndicator" type="Sprite2D" parent="CP_Holdable"]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("12_7g2cq")
+
+[node name="CP_Area" parent="CP_Holdable" instance=ExtResource("3_la85f")]
+collision_layer = 4
+collision_mask = 124
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Holdable/CP_Area"]
+shape = SubResource("RectangleShape2D_la85f")
+
+[node name="CP_Slotable" type="Node" parent="."]
+script = ExtResource("12_o1tpx")
+id = "GlazeCaramel"
+metadata/_custom_type_script = "uid://mjlj0npxctfg"
+
+[connection signal="rotated" from="CP_Area/ACP_ControlRotate" to="CP_Area/ACP_Tooltip" method="reset"]

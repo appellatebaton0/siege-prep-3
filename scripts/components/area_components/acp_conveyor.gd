@@ -14,6 +14,8 @@ func convey(target:Actor, motion:MotionComponent = null):
 		for component in target.get_components():
 			if component is MotionComponent:
 				motion = component
+		if motion == null:
+			return
 	
 	if motion.overrider == null or motion.overrider == self:
 		if not motion_components.has(motion):
@@ -23,7 +25,7 @@ func convey(target:Actor, motion:MotionComponent = null):
 		
 		motion.me.velocity = convey_amount.rotated(actor.rotation)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	# IF deactivated, get rid of all overrides
 	if not actor.is_active():
@@ -34,6 +36,20 @@ func _process(delta: float) -> void:
 	
 	# Undo the override
 	for component in motion_components:
+		
+		if not is_instance_valid(component):
+			# sum'n ain't right. (something was freed)
+			# clear the array of invalid components
+			var new_motion_components:Array[MotionComponent]
+			
+			for new_component in motion_components:
+				if is_instance_valid(new_component):
+					new_motion_components.append(new_component)
+			
+			motion_components = new_motion_components
+			return
+		
+		
 		var object = component
 		# IF the motioncomponent isn't overlapping anymore
 		if object is CharacterBody2D:
@@ -47,12 +63,12 @@ func _process(delta: float) -> void:
 				motion_components.erase(component)
 				# component = null
 
-func while_colliding_areas(areas:Array[Area2D], delta:float) -> void:
+func while_colliding_areas(areas:Array[Area2D], _delta:float) -> void:
 	for area in areas:
 		var a = area
 		if a is Component:
 			convey(a.actor)
-func while_colliding_bodies(bodies:Array[Node2D], delta:float) -> void:
+func while_colliding_bodies(bodies:Array[Node2D], _delta:float) -> void:
 	for body in bodies:
 		var b = body
 		if b is Component:

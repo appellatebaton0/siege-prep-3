@@ -12,7 +12,7 @@ signal rotated_right
 
 @export_range(0.0, 360.0) var rotation_amount:float 
 
-func while_colliding_bodies(bodies:Array[Node2D], delta:float) -> void:
+func while_colliding_bodies(_bodies:Array[Node2D], _delta:float) -> void:
 	if Input.is_action_just_pressed(positive_input):
 		actor.rotate(deg_to_rad(rotation_amount))
 		rotated.emit()

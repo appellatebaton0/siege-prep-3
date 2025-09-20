@@ -18,7 +18,7 @@ func get_holdable_component() -> HoldableComponent:
 			return component
 	return null
 
-func on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	# If the mouse is overlapping (provided mouse layers are set right)
 	# and the event is right
 	if has_collisions() and event is InputEventMouseButton:

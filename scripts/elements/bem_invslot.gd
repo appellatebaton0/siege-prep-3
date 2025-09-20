@@ -9,6 +9,7 @@ signal holding_changed()
 var holding:Actor
 ## How many of the actor is held
 @export var amount:int = 0
+## How many can be held (-1 for no limit)
 @export var max_amount:int = 1
 
 ## Defaults to this element's parent.
@@ -103,7 +104,7 @@ func _on_pressed():
 		# Modify it accordingly
 		modify_actor(holding)
 	# Trying to put something in a occupied slot
-	elif amount > 0 and mouse_holder.holding != null and check_actor_match(mouse_holder.holding) and amount < max_amount:
+	elif amount > 0 and mouse_holder.holding != null and check_actor_match(mouse_holder.holding) and (amount < max_amount or max_amount < 0):
 		# Free it from this mortal coil
 		mouse_holder.holding.queue_free()
 		

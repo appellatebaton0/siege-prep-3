@@ -3,7 +3,7 @@ class_name AreaComponent
 var me:Area2D = get_me()
 
 func _init() -> void:
-	component_id = "AnimatedSprite"
+	component_id = "Area"
 
 func has_overlapping_collisions() -> bool:
 	var bodies = me.get_overlapping_bodies()
@@ -25,6 +25,8 @@ func has_overlapping_collisions() -> bool:
 		if a is Component:
 			if a.actor == actor:
 				bodies.erase(body)
+	
+	# print(bodies, areas)
 	
 	## Return whether there are any left
 	return len(bodies) > 0 or len(areas) > 0
@@ -55,11 +57,11 @@ func get_layer_as_array(layer:int) -> Array[bool]:
 		false,false,false
 		]
 	
-	var highest_value = 30;
+	var highest_value:float = 30.0;
 	while layer > 0:
-		if layer >= pow(2, highest_value):
+		if layer >= int(pow(2.0, highest_value)):
 			return_array[highest_value] = true
-			layer -= pow(2, highest_value)
+			layer -= int(pow(2.0, highest_value))
 		highest_value -= 1
 	
 	return return_array
@@ -68,7 +70,7 @@ func get_array_as_layer(array:Array[bool]) -> int:
 	var value:int = 0
 	for i in range(len(array)):
 		if array[i]:
-			value += pow(2, i)
+			value += int(pow(2.0, i))
 	return value
 
 func layer_match(sub_component:AreaSubComponent, object:CollisionObject2D):

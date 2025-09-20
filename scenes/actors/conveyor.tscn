@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c1o1g8l0yp175"]
+[gd_scene load_steps=28 format=3 uid="uid://c1o1g8l0yp175"]
 
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_stgkr"]
 [ext_resource type="Texture2D" uid="uid://c01mca2tmsxsi" path="res://assets/conveyor.png" id="2_jo2i1"]
@@ -11,8 +11,9 @@
 [ext_resource type="Script" uid="uid://c2yxrg8yr1e5x" path="res://scripts/components/area_components/acp_conveyor.gd" id="6_dctoh"]
 [ext_resource type="FontFile" uid="uid://b1yamwmxwedf2" path="res://assets/fs-pixel-sans-unicode-regular.regular.ttf" id="6_tyrg2"]
 [ext_resource type="Texture2D" uid="uid://dwc6mu4td8qme" path="res://assets/placement_indicator.png" id="8_c3xxn"]
+[ext_resource type="Script" uid="uid://d1r6d4js1v2l7" path="res://scripts/components/cp_unrotator.gd" id="8_x1w3a"]
 [ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="9_vmec3"]
-[ext_resource type="Script" uid="uid://mjlj0npxctfg" path="res://scenes/components/cp_slotable.gd" id="11_dctoh"]
+[ext_resource type="Script" uid="uid://mjlj0npxctfg" path="res://scripts/components/cp_slotable.gd" id="11_dctoh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyrg2"]
 atlas = ExtResource("2_jo2i1")
@@ -156,6 +157,9 @@ are on top of it."
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CP_Unrotator" type="Node" parent="CP_Area/ACP_Tooltip"]
+script = ExtResource("8_x1w3a")
+
 [node name="ACP_ControlRotate" type="Node" parent="CP_Area"]
 script = ExtResource("4_jo2i1")
 rotation_amount = 90.0
@@ -181,10 +185,6 @@ shape = SubResource("RectangleShape2D_tipki")
 script = ExtResource("9_vmec3")
 grid_locked = true
 grid_offset = Vector2(8, 8)
-placement_visibility_limits = {
-"x": Vector2(-256, 112),
-"y": Vector2(-128, 128)
-}
 placement_indicator = NodePath("PlacementIndicator")
 placement_checker = NodePath("CP_Area")
 
@@ -195,7 +195,7 @@ texture = ExtResource("8_c3xxn")
 
 [node name="CP_Area" parent="CP_Holdable" instance=ExtResource("3_25b0p")]
 collision_layer = 4
-collision_mask = 4
+collision_mask = 124
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Holdable/CP_Area"]

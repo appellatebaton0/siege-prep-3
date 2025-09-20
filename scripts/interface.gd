@@ -11,15 +11,15 @@ func get_elements(depth:int = 4, with:Node = self) -> Array[Element]:
 	if depth <= 0:
 		return []
 	
-	var elements:Array[Element]
+	var return_elements:Array[Element]
 	
 	for child in with.get_children():
 		if child is Element:
-			elements.append(child)
+			return_elements.append(child)
 		
-		elements.append_array(get_elements(depth - 1, child))
+		return_elements.append_array(get_elements(depth - 1, child))
 	
-	return elements
+	return return_elements
 
 @onready var subinterfaces:Array[Interface] = get_subinterfaces()
 func get_subinterfaces() -> Array[Interface]:

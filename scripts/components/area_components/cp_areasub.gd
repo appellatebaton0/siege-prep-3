@@ -1,7 +1,5 @@
 extends Component
 class_name AreaSubComponent
-func _init() -> void:
-	component_id = "AreaSub"
 
 @export_flags_2d_physics var collision_mask
 @onready var area_component:AreaComponent = get_parent()
@@ -18,26 +16,26 @@ func get_collisions() -> Array[Node2D]:
 func has_collisions():
 	return len(overlapping_areas) > 0 or len(overlapping_bodies) > 0
 
-func on_area_entered(area:Area2D) -> void:
+func on_area_entered(_area:Area2D) -> void:
 	pass
-func on_body_entered(body:Node2D) -> void:
-	pass
-
-func while_colliding_areas(areas:Array[Area2D], delta:float) -> void:
-	pass
-func while_colliding_bodies(bodies:Array[Node2D], delta:float) -> void:
+func on_body_entered(_body:Node2D) -> void:
 	pass
 
-func while_no_colliding_areas(delta:float) -> void:
+func while_colliding_areas(_areas:Array[Area2D], _delta:float) -> void:
 	pass
-func while_no_colliding_bodies(delta:float) -> void:
-	pass
-
-func while_no_collisions(delta:float) -> void:
-	pass
-func while_any_collisions(delta:float) -> void:
+func while_colliding_bodies(_bodies:Array[Node2D], _delta:float) -> void:
 	pass
 
+func while_no_colliding_areas(_delta:float) -> void:
+	pass
+func while_no_colliding_bodies(_delta:float) -> void:
+	pass
 
-func on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func while_no_collisions(_delta:float) -> void:
+	pass
+func while_any_collisions(_delta:float) -> void:
+	pass
+
+
+func on_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	pass
