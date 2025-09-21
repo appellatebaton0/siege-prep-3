@@ -1,5 +1,8 @@
 extends Node
 
+signal play_sfx(sfx:AudioStream)
+signal new_particle(particle:PackedScene, at:Vector2)
+
 var global_animations:Array[GlobalAnimation]
 func add_global_animation(additor:GlobalAnimation):
 	if not global_animations.has(additor):

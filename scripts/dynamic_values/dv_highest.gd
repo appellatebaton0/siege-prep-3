@@ -5,7 +5,7 @@ class_name HighestDynamicValue
 
 var high = 0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	high = max(high, highvalue.value())
 
 func value():

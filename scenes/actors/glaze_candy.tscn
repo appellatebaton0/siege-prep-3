@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d06k5mbeyoroa"]
+[gd_scene load_steps=23 format=3 uid="uid://d06k5mbeyoroa"]
 
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_8j6yx"]
 [ext_resource type="Texture2D" uid="uid://btv6nbp2xol7p" path="res://assets/glaze_candy.png" id="2_7g2cq"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="11_clal2"]
 [ext_resource type="Texture2D" uid="uid://dwc6mu4td8qme" path="res://assets/placement_indicator.png" id="12_7g2cq"]
 [ext_resource type="Script" uid="uid://mjlj0npxctfg" path="res://scripts/components/cp_slotable.gd" id="12_o1tpx"]
+[ext_resource type="Script" uid="uid://dnog3jll3kr3h" path="res://scripts/components/cp_particle.gd" id="15_bb4ft"]
+[ext_resource type="PackedScene" uid="uid://3wmojgfro4tg" path="res://assets/particles/candy_particles.tscn" id="15_dy8q8"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_yq6so"]
 color = Color(0.584314, 0.443137, 0.160784, 1)
@@ -49,10 +51,6 @@ size = Vector2(15, 15)
 script = ExtResource("1_8j6yx")
 static_texture = ExtResource("2_7g2cq")
 metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("2_7g2cq")
 
 [node name="CP_Area" parent="." instance=ExtResource("3_la85f")]
 collision_layer = 8
@@ -157,6 +155,7 @@ collision_mask = 124
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CP_Holdable/CP_Area"]
+visible = false
 shape = SubResource("RectangleShape2D_la85f")
 
 [node name="CP_Slotable" type="Node" parent="."]
@@ -164,4 +163,14 @@ script = ExtResource("12_o1tpx")
 id = "GlazeCaramel"
 metadata/_custom_type_script = "uid://mjlj0npxctfg"
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_7g2cq")
+
+[node name="ParticleComponent" type="Node" parent="."]
+script = ExtResource("15_bb4ft")
+particle = ExtResource("15_dy8q8")
+metadata/_custom_type_script = "uid://dnog3jll3kr3h"
+
 [connection signal="rotated" from="CP_Area/ACP_ControlRotate" to="CP_Area/ACP_Tooltip" method="reset"]
+[connection signal="modified_resource" from="CP_Area/ACP_ResourceModifier" to="ParticleComponent" method="make"]

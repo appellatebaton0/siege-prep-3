@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://chm3si0nicqxd"]
+[gd_scene load_steps=40 format=4 uid="uid://chm3si0nicqxd"]
 
 [ext_resource type="Texture2D" uid="uid://dds73m1ns0ua5" path="res://assets/tileset.png" id="1_85g3d"]
 [ext_resource type="PackedScene" uid="uid://c1o1g8l0yp175" path="res://scenes/actors/conveyor.tscn" id="2_jyhfs"]
@@ -28,6 +28,8 @@
 [ext_resource type="Script" uid="uid://d1r6d4js1v2l7" path="res://scripts/components/cp_unrotator.gd" id="20_pm3ni"]
 [ext_resource type="Script" uid="uid://b1vvgea5ocu13" path="res://scripts/components/area_components/acp_consumer.gd" id="21_jscy8"]
 [ext_resource type="PackedScene" uid="uid://dul7gmk7a6gqf" path="res://scenes/actors/glaze_caramel.tscn" id="24_y6deb"]
+[ext_resource type="Script" uid="uid://euj3kp8pipih" path="res://scripts/particle_manager.gd" id="29_fv21b"]
+[ext_resource type="Script" uid="uid://cv207a4o6oygf" path="res://scripts/sfx_manager.gd" id="29_yq6so"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("1_85g3d")
@@ -687,6 +689,12 @@ metadata/_custom_type_script = "uid://cp7jolp00vhsj"
 script = ExtResource("11_tel4y")
 grid_locked = true
 metadata/_custom_type_script = "uid://d28oq4iu2elp8"
+
+[node name="ParticleManager" type="Node" parent="CanvasLayer2"]
+script = ExtResource("29_fv21b")
+
+[node name="SFXManager" type="Node" parent="."]
+script = ExtResource("29_yq6so")
 
 [connection signal="amount_changed" from="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/BEM_InvSlot" to="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(CV)/MarginContainer/VBoxContainer/Label" method="_update_label"]
 [connection signal="amount_changed" from="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/BEM_InvSlot" to="UI/UserInterface/HBoxContainer/Inventory/MarginContainer/Inventory/EM_Button(GCa)/MarginContainer/VBoxContainer/Label" method="_update_label"]

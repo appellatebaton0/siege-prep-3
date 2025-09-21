@@ -30,7 +30,7 @@ func get_rate_for(values:Dictionary) -> int:
 		if not values.has(value):
 			return 0
 	
-	var rate:int
+	var rate:int = 0
 	
 	for resource in consumed.keys():
 		if resource is Resource: # it is, damn intellisense
@@ -136,7 +136,7 @@ func on_area_entered(area:Area2D) -> void:
 		for resource in resources:
 			consumed[resource] = timeout_time
 		
-		a.actor.queue_free()
+		a.actor.late_free()
 
 func on_body_entered(body:Node2D) -> void:
 	var b = body
@@ -150,4 +150,4 @@ func on_body_entered(body:Node2D) -> void:
 		for resource in resources:
 			consumed[resource] = timeout_time
 		
-		b.actor.queue_free()
+		b.actor.late_free()

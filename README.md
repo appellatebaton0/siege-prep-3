@@ -32,6 +32,9 @@ Additionally, I'll probably add a LOT to the composition framework I've been bui
 - CP_ResourceModifier -> Modifies the value of a resource in a CP_Resource
 - CP_Unrotator -> Makes a node's rotation stay constant and ignore the actor's.
 - Started on DynamicValues, effectively a system for making glue between components, elements, etc dynamically. Sorta like coding with nodes but it's all data manipulation.
+- CP_SFX -> Provides an in for signals to play sfx
+- EM_SFX -> See above.
+- CP_Particle -> Provides an in for signals to make particles
 
 ### Game specific
 -  RS_Apple -> A game-specific resource to hold an apple's type, toppings, and glaze.

@@ -3,6 +3,8 @@ class_name ResourceModifierAreaSubComponent # Jesus
 func _init() -> void:
 	component_id = "ResourceModifierAreaSub"
 
+signal modified_resource
+
 ## The resource ids to mask for
 @export var resource_ids:Array[String]
 
@@ -30,6 +32,7 @@ func on_area_entered(area:Area2D) -> void:
 					# Remember to use change_value not resource.set so it updates.
 					for key in modifiers.keys():
 						component.change_value(key, modifiers[key])
+					modified_resource.emit()
 
 func on_body_entered(body:Node2D) -> void:
 	if not actor.is_active():
@@ -47,3 +50,4 @@ func on_body_entered(body:Node2D) -> void:
 					# Remember to use change_value not resource.set so it updates.
 					for key in modifiers.keys():
 						component.change_value(key, modifiers[key])
+					modified_resource.emit()

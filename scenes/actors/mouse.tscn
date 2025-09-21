@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://5u0g41egsprk"]
+[gd_scene load_steps=9 format=3 uid="uid://5u0g41egsprk"]
 
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_4hn06"]
 [ext_resource type="PackedScene" uid="uid://byojuvig761hd" path="res://scenes/components/cp_motion.tscn" id="2_8m7tw"]
 [ext_resource type="Script" uid="uid://c7m8cx6r12svp" path="res://scripts/components/motion_states/ms_mouse.gd" id="3_677v4"]
 [ext_resource type="PackedScene" uid="uid://bh3rkq5jg66lm" path="res://scenes/components/cp_holder.tscn" id="4_8m7tw"]
+[ext_resource type="Script" uid="uid://db41xfvwrq12p" path="res://scripts/components/area_components/cp_sfx.gd" id="5_677v4"]
+[ext_resource type="AudioStream" uid="uid://bu5u65h6tr56a" path="res://assets/sfx/pick_up.wav" id="6_s7sx7"]
+[ext_resource type="AudioStream" uid="uid://cj05jifiaeeja" path="res://assets/sfx/place.wav" id="7_whnb6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ya4ey"]
 size = Vector2(1, 1)
@@ -23,3 +26,14 @@ metadata/_custom_type_script = "uid://c7m8cx6r12svp"
 shape = SubResource("RectangleShape2D_ya4ey")
 
 [node name="CP_Holder" parent="." instance=ExtResource("4_8m7tw")]
+
+[node name="CP_SFX (Pick Up)" type="Node" parent="."]
+script = ExtResource("5_677v4")
+sfx = ExtResource("6_s7sx7")
+
+[node name="CP_SFX2 (Put Down)" type="Node" parent="."]
+script = ExtResource("5_677v4")
+sfx = ExtResource("7_whnb6")
+
+[connection signal="picked_up" from="CP_Holder" to="CP_SFX (Pick Up)" method="make"]
+[connection signal="put_down" from="CP_Holder" to="CP_SFX2 (Put Down)" method="make"]

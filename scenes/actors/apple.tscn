@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5ox11s6uu2e7"]
+[gd_scene load_steps=12 format=3 uid="uid://b5ox11s6uu2e7"]
 
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_nni3p"]
 [ext_resource type="PackedScene" uid="uid://dnd4kisf8wjau" path="res://scenes/components/cp_sprite.tscn" id="2_eirvq"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://6idd405bl3x7" path="res://scripts/components/cp_resource.gd" id="6_eirvq"]
 [ext_resource type="Texture2D" uid="uid://cr7qyvwkw7w36" path="res://assets/red_delicious.png" id="7_fpwmc"]
 [ext_resource type="Script" uid="uid://sjerois4ujyy" path="res://scripts/resources/rs_apple.gd" id="7_ljgr5"]
+[ext_resource type="Script" uid="uid://dnog3jll3kr3h" path="res://scripts/components/cp_particle.gd" id="8_fpwmc"]
+[ext_resource type="PackedScene" uid="uid://wx4skxg45i04" path="res://assets/particles/apple_particle.tscn" id="9_4ejay"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_choun"]
 size = Vector2(7, 7)
@@ -23,6 +25,7 @@ metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
 
 [node name="CP_Sprite" parent="." node_paths=PackedStringArray("resource_component") instance=ExtResource("2_eirvq")]
 texture_filter = 1
+texture = ExtResource("7_fpwmc")
 resource_component = NodePath("../CP_Resource")
 resource_value = "type_sprite"
 
@@ -54,3 +57,8 @@ metadata/_custom_type_script = "uid://0xco1arf05wp"
 script = ExtResource("6_eirvq")
 id = "Apple"
 resource = SubResource("Resource_fpwmc")
+
+[node name="CP_Particle" type="Node" parent="."]
+script = ExtResource("8_fpwmc")
+particle = ExtResource("9_4ejay")
+play_on_free = true

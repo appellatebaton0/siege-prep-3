@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bcgexxana6rq2"]
+[gd_scene load_steps=23 format=3 uid="uid://bcgexxana6rq2"]
 
 [ext_resource type="Script" uid="uid://dwh0yifrqxhcp" path="res://scripts/actor.gd" id="1_ohyxs"]
 [ext_resource type="Texture2D" uid="uid://c8ggq144us6y1" path="res://assets/glaze_white_chocolate.png" id="2_2ox6b"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://d28oq4iu2elp8" path="res://scripts/components/cp_holdable.gd" id="11_ulmaw"]
 [ext_resource type="Texture2D" uid="uid://dwc6mu4td8qme" path="res://assets/placement_indicator.png" id="12_j4kij"]
 [ext_resource type="Script" uid="uid://mjlj0npxctfg" path="res://scripts/components/cp_slotable.gd" id="13_xmvmk"]
+[ext_resource type="Script" uid="uid://dnog3jll3kr3h" path="res://scripts/components/cp_particle.gd" id="15_3emgx"]
+[ext_resource type="PackedScene" uid="uid://cxfae5xojra8r" path="res://assets/particles/white_chocolate_particles.tscn" id="16_fdoi7"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_yq6so"]
 color = Color(0.584314, 0.443137, 0.160784, 1)
@@ -49,10 +51,6 @@ size = Vector2(15, 15)
 script = ExtResource("1_ohyxs")
 static_texture = ExtResource("2_2ox6b")
 metadata/_custom_type_script = "uid://dwh0yifrqxhcp"
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("2_2ox6b")
 
 [node name="CP_Area" parent="." instance=ExtResource("3_3emgx")]
 collision_layer = 8
@@ -169,4 +167,14 @@ script = ExtResource("13_xmvmk")
 id = "GlazeWhiteChocolate"
 metadata/_custom_type_script = "uid://mjlj0npxctfg"
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_2ox6b")
+
+[node name="ParticleComponent" type="Node" parent="."]
+script = ExtResource("15_3emgx")
+particle = ExtResource("16_fdoi7")
+metadata/_custom_type_script = "uid://dnog3jll3kr3h"
+
 [connection signal="rotated" from="CP_Area/ACP_ControlRotate" to="CP_Area/ACP_Tooltip" method="reset"]
+[connection signal="modified_resource" from="CP_Area/ACP_ResourceModifier" to="ParticleComponent" method="make"]

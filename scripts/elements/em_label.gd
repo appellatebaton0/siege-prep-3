@@ -11,7 +11,7 @@ var me:Label = get_me()
 func _ready() -> void:
 	_update_label()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_update_label()
 
 

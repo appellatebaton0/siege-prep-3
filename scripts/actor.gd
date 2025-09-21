@@ -1,6 +1,8 @@
 extends Node2D
 class_name Actor
 
+signal freeing
+
 # A class for Node2Ds that allows them to adopt
 # functionality from Components.
 
@@ -21,6 +23,10 @@ func remove_active_lock(node:Node) -> bool:
 	return false
 func is_active() -> bool:
 	return len(active_lockers) == 0
+
+func late_free():
+	freeing.emit()
+	call_deferred("queue_free")
 
 @onready var components:Array[Component] = get_components()
 

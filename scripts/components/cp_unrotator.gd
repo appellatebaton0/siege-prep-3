@@ -7,5 +7,5 @@ func _init() -> void:
 
 @onready var parent:CanvasItem = get_parent()
 @onready var parent_rotation:float = parent.rotation
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	parent.rotation = -actor.rotation
