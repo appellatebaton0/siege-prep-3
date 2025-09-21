@@ -2,6 +2,7 @@
 The game I'm making for Hackclub's Siege - Prep Week 3 AND Godot Wild Jam #85
 
 The idea is an autumn-themed game about producing a steady supply of candied apples to meet customer demand.
+This game was completed 9/20/2025, at ~8:30pm! Play it [here](https://baton-0.itch.io/autumnation) on web!
 
 Additionally, I'll probably add a LOT to the composition framework I've been building on game by game...
 ## Here's a list of things added for this game thus far;
